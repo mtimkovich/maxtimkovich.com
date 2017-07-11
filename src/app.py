@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, redirect
 from jinja2 import TemplateNotFound
 
 from top_tracks.top_tracks import top_tracks
@@ -11,6 +11,10 @@ app.config.from_envvar('FLASK_CONFIG')
 # Blueprints
 app.register_blueprint(top_tracks)
 app.register_blueprint(friendbot, url_prefix='/friendbot')
+
+@app.route('/hearthsounds.py')
+def hearthsounds():
+    return redirect('/p/hearthsounds.py')
 
 @app.route('/')
 @app.route('/<page>.html')

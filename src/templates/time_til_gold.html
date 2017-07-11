@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>Time Til Gold</title>
+<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
+<style>
+h1 {
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+    <h1>Time Til Golden Hero</h1>
+    <i>Disappoint yourself!</i>
+    <p>
+
+<span id="error_msg" class="error"></span>
+<form id="form">
+    <table>
+        <tr>
+            <td><label id="played">Ranked Games Won</label></td>
+            <td><input type="text" name="played" /></td>
+        </tr>
+        <tr>
+            <td><label id="win_rate">Win Rate <a href="#" title="55% or 60% if you're good, 50% if you're bad">[?]</a></label></td>
+            <td><input type="text" name="win_rate" /> %</td>
+        </tr>
+        <tr>
+            <td><label id="game_time">Average Game Time <a href="#" title="~5m aggro, ~7m midrange, ~10m+ control/combo">[?]</a></label></td>
+            <td><input type="text" name="game_time" /> minutes</td>
+        </tr>
+        <tr>
+            <td><label>Result <a href="#" title="How long (on average) of straight playing before you get your golden hero">[?]</a></label></td>
+            <td><input type="text" name="result" readonly />  hours</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" value="Submit" onclick="calculate()" /></td>
+        </tr>
+    </table>
+</form>
+
+<p><a href="img/math.png">The math</a>
+<p>Created by Max Timkovich
+
+
+<script>
+
+function show_error(key, msg) {
+    document.getElementById(key).className = 'error';
+    document.getElementById('error_msg').textContent = 'Error: ' + msg;
+
+    return true;
+}
+
+function calculate() {
+    var form = document.getElementById('form');
+
+    var fields = {
+        'played': parseInt(form.played.value, 10),
+        'win_rate': parseFloat(form.win_rate.value),
+        'game_time': parseInt(form.game_time.value, 10)
+    };
+
+    var error = false;
+    for (key in fields) {
+        var val = fields[key];
+        var field_error = false;
+
+        if (isNaN(val)) {
+            error = field_error = show_error(key, 'Invalid number or blank field');
+        } else if (key == 'played') {
+            if (val > 500) {
+                error = field_error = show_error(key, 'Games won must be less than 500, smartass');
+            }
+        }
+
+        if (field_error) {
+            field_error = false;
+        } else {
+            document.getElementById(key).className = '';
+        }
+    }
+
+    if (error) {
+        return;
+    } else {
+        document.getElementById('error_msg').textContent = '';
+    }
+
+    if (fields['win_rate'] == 0) {
+        form.result.value = 'https://youtu.be/2KjtRokhpvM?list=PLvEIxIeBRKSjprrvlbAcbVjzHsnH9PjDX';
+        return;
+    }
+
+    var remaining = 500 - fields['played'];
+    var percent = fields['win_rate'] / 100;
+
+    result = (remaining * fields['game_time']) / (percent * 60);
+
+    form.result.value = result.toFixed(2);
+}
+</script>
+</body>
+</html>
