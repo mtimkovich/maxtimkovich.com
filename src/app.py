@@ -1,5 +1,5 @@
 from flask import Flask, render_template, abort
-import jinja2
+from jinja2 import TemplateNotFound
 
 from top_tracks.top_tracks import top_tracks
 from friendbot.friendbot import friendbot
@@ -18,5 +18,5 @@ app.register_blueprint(friendbot, url_prefix='/friendbot')
 def static_page(page='index'):
     try:
         return render_template('{}.html'.format(page))
-    except jinja2.exceptions.TemplateNotFound:
+    except TemplateNotFound:
         abort(404)

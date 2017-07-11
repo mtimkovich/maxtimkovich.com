@@ -6,8 +6,8 @@ import os
 import random
 import sys
 
-
 friendbot = Blueprint('fb', __name__, static_folder='friends')
+
 
 def is_comment(s):
     return s.startswith('//')
