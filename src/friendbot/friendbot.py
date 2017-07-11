@@ -36,6 +36,10 @@ def randline(filename):
 
     return output.rstrip()
 
+@friendbot.route('.py', methods=['GET'])
+@friendbot.route('/', methods=['GET'])
+def error():
+    abort(405)
 
 @friendbot.route('.py', methods=['POST'])
 @friendbot.route('/', methods=['POST'])

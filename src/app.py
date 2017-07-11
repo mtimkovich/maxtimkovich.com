@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
+import jinja2
 
 from top_tracks.top_tracks import top_tracks
 from friendbot.friendbot import friendbot
@@ -12,30 +13,10 @@ app.register_blueprint(top_tracks)
 app.register_blueprint(friendbot, url_prefix='/friendbot')
 
 @app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/smash_maxpr.html')
-@app.route('/smash_maxpr')
-def smash_maxpr():
-    return render_template('smash_maxpr.html')
-
-@app.route('/python_tutorial.html')
-@app.route('/python_tutorial')
-def python_tutorial():
-    return render_template('python_tutorial.html')
-
-@app.route('/lisp_tutorial.html')
-@app.route('/lisp_tutorial')
-def lisp_tutorial():
-    return render_template('lisp_tutorial.html')
-
-@app.route('/random_caps.html')
-@app.route('/random_caps')
-def random_caps():
-    return render_template('random_caps.html')
-
-@app.route('/textarea.html')
-@app.route('/textarea')
-def textarea():
-    return render_template('textarea.html')
+@app.route('/<page>.html')
+@app.route('/<page>')
+def static_page(page='index'):
+    try:
+        return render_template('{}.html'.format(page))
+    except jinja2.exceptions.TemplateNotFound:
+        abort(404)
