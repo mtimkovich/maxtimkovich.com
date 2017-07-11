@@ -1,0 +1,284 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Python Tutorial</title>
+<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
+<style></style></head><body id="preview">
+
+<style>
+    .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+    }
+</style>
+<article class="markdown-body">
+<h1 id="python-tutorial">Python Tutorial</h1>
+<p>by Max Timkovich<br>Updated: 2017-5-04</p>
+<p><em>for Paul, Nick, and Nathan: so you guys can have some marketable skills.</em></p>
+<h2 id="introduction">Introduction</h2>
+<p>Python is a pretty cool programming language. It&#39;s easy to read and write and runs on a bunch of different operating systems. Despite being relatively easy to learn, it&#39;s not a toy; it&#39;s used on websites like YouTube, reddit, and Dropbox.</p>
+<p>This tutorial isn&#39;t exhaustive, but should be a good starting point, and for learning what Python is about.</p>
+<h2 id="downloading-python">Downloading Python</h2>
+<p>This tutorial will be for Python 2.7. Python 3 exists and does some really nice stuff with unicode handling, but many libraries are still using Python 2, so will we. Python 3 is very similar though, so it&#39;s not difficult at all to transition from one to the other.</p>
+<p>You can download Python 2.7 <a href="https://www.python.org/downloads/">here</a>.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Open Python. On Windows, it&#39;ll be called IDLE. It&#39;ll give you this:</p>
+<p><img src="http://i.imgur.com/KGWEK1h.png?1" alt="repl"></p>
+<p>This is a REPL (read-eval-print loop). Anything you type will be run and printed to the screen. This is really useful for playing around with Python and trying out new concepts. You should try out most of the things in the tutorial in the REPL.</p>
+<p>Here&#39;s some stuff to try out to get a feel for Python. Hit enter after each command to have it run.</p>
+<pre><code># Printing stuff to the screen
+&gt;&gt;&gt; print &#39;hello, world&#39;
+
+# Advanced mathematics
+&gt;&gt;&gt; 1 + 2
+
+# Assigning integers to variables
+&gt;&gt;&gt; a = 6
+&gt;&gt;&gt; b = 7
+&gt;&gt;&gt; a * b
+</code></pre><p>Alternatively, you can save your code in a <code>.py</code> file and run it through IDLE or the command line that way.</p>
+<h2 id="basic-data-types">Basic data types</h2>
+<p>Data types are the way data from your program is stored on the computer. The most basic ones are integers, floats, booleans, and strings.</p>
+<p>Python is dynamically typed, which means you don&#39;t have to tell it the type of the variable before you assign it values. For instance, the following is valid, though a bit confusing.</p>
+<pre><code>a = 6
+a = 7.3
+a = &#39;lol&#39;
+a = True
+</code></pre><ul>
+<li><strong>int</strong>: integers. You already know</li>
+<li><strong>float</strong>: floats. The rational numbers. You specify them by having a <code>.</code> in the number e.g. <code>7.0</code>, <code>3.1</code>, <code>2./3</code>.</li>
+<li><strong>string</strong>: words are stored in strings. The are created by putting letters between <code>&#39; &#39;</code> or <code>&quot; &quot;</code>. e.g. <code>&#39;thusly&#39;</code>, <code>&quot;wow, neato&quot;</code>.</li>
+<li><strong>boolean</strong>: true or false. In Python, these are specified as <code>True</code> and <code>False</code>.</li>
+</ul>
+<p>You can convert between different basic data types using the <code>int()</code>, <code>float()</code>, and <code>bool()</code> functions.</p>
+<pre><code>&gt;&gt;&gt; float(3)
+3.0
+&gt;&gt;&gt; int(3.14)
+3
+&gt;&gt;&gt; bool(1)
+True
+</code></pre><h2 id="getting-serious">Getting Serious</h2>
+<p>All you need to know to program in any language is the following:</p>
+<h3 id="assigning-variables">Assigning variables</h3>
+<pre><code>a = 3
+foo = &#39;spooky boogie&#39;
+e = 2.718
+</code></pre><h3 id="-if-statements"><code>if</code> statements</h3>
+<pre><code>if statement1:
+    # run if statement1 is true
+elif statement2:
+    # run if statement2 is true (but not statement1)
+else:
+    # run if statement 1 and 2 are false
+</code></pre><h3 id="-while-for-statements"><code>while</code>/<code>for</code> statements</h3>
+<pre><code>while statement:
+    # Loop until statement is false
+
+for variable in iterable:
+    # loop over iterable variable and assign individual elements to variable
+
+# e.g.
+for i in range(6):
+    print i,
+
+# Output: 1, 2, 3, 4, 5
+</code></pre><h3 id="printing">Printing</h3>
+<pre><code># Display variable&#39;s value
+print value
+
+# Advanced printing
+print &#39;Hello, {}!&#39;.format(&#39;World&#39;)
+
+# Output: &#39;Hello, World!&#39;
+</code></pre><p>Everything else is just a bonus.</p>
+<p>But we&#39;ll cover it anyway.</p>
+<h2 id="conditionals">Conditionals</h2>
+<p>The majority of the heavy lifting in any program happens in the conditional statements: loops and if statements.<br>The format for them is looks like:</p>
+<pre><code>if statement:
+    # Do stuff
+
+while statement:
+    # Do stuff until statement is false
+</code></pre><p>A statement is anything that evaluates to either <code>True</code> or <code>False</code>. In Python, empty strings (<code>&#39;&#39;</code>), <code>0</code>, empty lists (<code>[]</code>), and <code>None</code> evaluate<br>to <code>False</code>. Everything else is <code>True</code>.</p>
+<ul>
+<li><code>==</code>: check if two values are equal. <em>Don&#39;t confuse with <code>=</code> used for assigning values.</em></li>
+<li><code>!=</code>: check if two values not are equal</li>
+<li><code>&gt;</code>: greater than</li>
+<li><code>&gt;=</code>: greater than or equal to</li>
+<li><code>&lt;</code>: less than</li>
+<li><code>&lt;=</code>: no idea</li>
+</ul>
+<p>You can combine statements together with <code>and</code> and <code>or</code>, which works exactly like you&#39;d expect.</p>
+<pre><code>&gt;&gt;&gt; 1 == 2 or 8*3 == 24
+True
+&gt;&gt;&gt; True and False
+False
+</code></pre><p><code>for</code> loops are the last conditional statement, but those will be covered in the next section, as their utility makes the most amount of sense when paired with lists.</p>
+<h3 id="control-statements">Control Statements</h3>
+<p>There are a couple of special statements for interacting with loops.</p>
+<p><code>break</code> exits out of a loop unconditionally.</p>
+<p><code>continue</code> will skip the rest of the code in the loop and proceed to the next iteration of the loop.</p>
+<h2 id="advanced-data-types">Advanced Data Types</h2>
+<p>Most of the time, you won&#39;t be working with one variable, you&#39;ll be working with a lot of them. Lists, dictionaries, and sets help organize, access, and manipulate multiple variables.</p>
+<h3 id="lists">Lists</h3>
+<p>Lists are sequential arrays of data. They&#39;re declared using square brackets <code>[ ]</code></p>
+<pre><code>&gt;&gt;&gt; days = [&#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;, &#39;Saturday&#39;, &#39;Sunday&#39;]
+&gt;&gt;&gt; nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</code></pre><p>Individual elements in a list can be accessed using <code>[n]</code>. Lists start indexing from 0. Items can be accessed from the end of the list using negative numbers.</p>
+<pre><code>&gt;&gt;&gt; days[0]
+&#39;Monday&#39;
+&gt;&gt;&gt; days[-2]
+&#39;Saturday&#39;
+&gt;&gt;&gt; days[1] = &#39;&#39;
+</code></pre><p>You can get what&#39;s called a splice of the list by providing two numbers. If only a colon is provided, the splice will go all the way to the beginning or end of the list.</p>
+<pre><code>&gt;&gt;&gt; days[2:4]
+[&#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;]
+&gt;&gt;&gt; days[:-2]
+[&#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;]
+&gt;&gt;&gt; days[:]
+[&#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;, &#39;Saturday&#39;, &#39;Sunday&#39;]
+</code></pre><p>Lastly, you can provide a third number to the splice to set the &quot;step&quot; or how much to increment over the list. A negative number can be given to step number.</p>
+<pre><code>&gt;&gt;&gt; nums[::2]
+[0, 2, 4, 6, 8]
+&gt;&gt;&gt; nums[::-1]
+[9, 8, 7, 6, 5, 4, 3, 2, 1]
+</code></pre><p>Strings in Python are (for the most part) lists of characters, so any of the operations you can do on a list (with the notable exception of assigning individual characters) can be done on a string.</p>
+<p>Making a list of numbers like <code>nums</code> is something that&#39;s done very frequently in Python, so that list can also be generated using the <code>range()</code> function.</p>
+<pre><code>&gt;&gt;&gt; range(9)
+[0, 1, 2, 3, 4, 5, 6, 7, 8]
+</code></pre><p><code>range</code> has 2 optional arguments, its full declaration is <code>range(start, end, step)</code>. <code>start</code> is what value to start the range at and defaults to 0. <code>end</code> is the maximum number (exclusive). <code>step</code> defaults to 1, and signifies how many values to skip while going through the range. i.e. a value of 2 would make the range skip every other value. <code>step</code> can be negative to walk from a <code>start</code> to <code>end</code> where <code>start</code> is larger than <code>end</code>.</p>
+<p>There are some ways to modify your list, and I&#39;ll list (hahahahahahahahahahaha) some of the more commonly used ones below.</p>
+<ul>
+<li><p><code>append</code>: add an element to the end of the list</p>
+<pre><code>  &gt;&gt;&gt; days.append(&#39;Sunday 2&#39;)
+</code></pre></li>
+<li><p><code>del</code>: delete an element in the list</p>
+<pre><code>  &gt;&gt;&gt; del days[0]
+</code></pre></li>
+<li><p><code>pop</code>: remove the last element in the list, and return that element</p>
+<pre><code>  &gt;&gt;&gt; days.pop()
+  &#39;Sunday&#39;
+</code></pre></li>
+</ul>
+<p>For everything else you can do on a list, check out the <a href="https://docs.python.org/2/tutorial/datastructures.html">documentation</a>.</p>
+<h4 id="tuples">Tuples</h4>
+<p>One thing that is related closely to lists that you may encounter when programming in Python are <strong>tuples</strong>. Tuples are deliminated with <code>( )</code>.</p>
+<pre><code>&gt;&gt;&gt; t = (255, 0, 88)
+&gt;&gt;&gt; t[0]
+255
+</code></pre><p>Tuples are similar to lists in that they hold multiple elements and can be indexed using <code>[]</code>. They differ in the fact that tuples are <em>immutable</em>, that is that tuples cannot be modified after they are created. Attempting to change a tuple&#39;s value or use <code>append</code> on it will fail with an exception.</p>
+<h4 id="for-loops">For loops</h4>
+<p><code>for</code> loops and lists compliment each other very well.</p>
+<p><code>for</code> loops work like this:</p>
+<pre><code>&gt;&gt;&gt; for i in lst
+...     # do stuff
+</code></pre><p>They iterate over every element of the list <code>lst</code> and assign its value to the variable <code>i</code>.</p>
+<h4 id="sorting">Sorting</h4>
+<p>To sort a list, use the <code>sorted</code> function.</p>
+<pre><code>&gt;&gt;&gt; l = range(5)[::-1]
+[4, 3, 2, 1, 0]
+&gt;&gt;&gt; sorted(l)
+[0, 1, 2, 3, 4]
+</code></pre><h4 id="list-comprehensions">List Comprehensions</h4>
+<p>List comprehensions allow you to quickly operate on a list. Their style looks like this:</p>
+<pre><code>[i*2 for i in range(0, 3)] # [0, 2, 4]
+[i for i in range(0, 10) if i % 2 == 0]
+# Return a list of only the even numbers: [0, 2, 4, 6, 8]
+</code></pre><h3 id="dictionaries">Dictionaries</h3>
+<p>Dictionaries (aka hash table, hash map) map from a unique key to a value. They are notable because looking up a value in a dictionary by its key is <em>very</em> fast: O(1). </p>
+<p>Dictionaries are declared using <code>{}</code></p>
+<pre><code>&gt;&gt;&gt; d = {}
+&gt;&gt;&gt; d = {
+            &#39;app&#39;: &#39;python&#39;,
+            &#39;version&#39;: 2.7
+        }
+&gt;&gt;&gt; d[&#39;app&#39;]
+&#39;python&#39;
+</code></pre><p>Dictionaries are crazy useful. I&#39;ll try to show some of their power by showing a small program below to get a count of the frequency of letters of a string.</p>
+<pre><code>letters = {}
+strng = &quot;Dictionaries are crazy useful. I&#39;ll try to show some of their power by showing a small program below to get a count of the frequency of letters of a string.&quot;
+for s in strng:
+    if s not in letters:
+        letters[s] = 0
+    letters[s] += 1
+</code></pre><p>Output:</p>
+<pre><code>{&#39; &#39;: 29, &quot;&#39;&quot;: 1, &#39;.&#39;: 2, &#39;D&#39;: 1, &#39;I&#39;: 1, &#39;a&#39;: 8, &#39;c&#39;: 4, &#39;b&#39;: 2, &#39;e&#39;: 13, &#39;g&#39;: 4, &#39;f&#39;: 6, &#39;i&#39;: 7, &#39;h&#39;: 3, &#39;m&#39;: 3, &#39;l&#39;: 7, &#39;o&#39;: 13, &#39;n&#39;: 5, &#39;q&#39;: 1, &#39;p&#39;: 2, &#39;s&#39;: 7, &#39;r&#39;: 12, &#39;u&#39;: 4, &#39;t&#39;: 12, &#39;w&#39;: 4, &#39;y&#39;: 4, &#39;z&#39;: 1}
+</code></pre><p>One thing to note is that the order of the keys in a dictionary are arbitrary, so don&#39;t depend on them being in any particular order.</p>
+<h4 id="sets">Sets</h4>
+<p>Sets are just like their mathematical equivalents, they hold a collection of values with no duplicates. Internally, they are equivalent to dictionaries, but their key doesn&#39;t map to any value.</p>
+<p>Sets are declared like this:</p>
+<pre><code>&gt;&gt;&gt; set([1, 1, 2, 3, 5])
+set([1, 2, 3, 5])
+</code></pre><p>Check out the <a href="https://docs.python.org/2/library/stdtypes.html#set">documentation</a> on sets for more stuff you can do with set objects, like set difference or checking if one set is a subset of another.</p>
+<h2 id="functions">Functions</h2>
+<p>If you ever find yourself repeating the same block of code, it&#39;s a code idea to stick that in a function. Functions take 0 or more parameters as an argument, and can return a value.</p>
+<p>Functions are declared like so:</p>
+<pre><code>def square(x):
+    return x * x
+
+square(19) # 361
+</code></pre><h2 id="files">Files</h2>
+<p>Sometimes in life, you&#39;ll want to have your Python program open a file.</p>
+<pre><code>with open(&#39;file_name.file&#39;) as f:
+    for line in f:
+        # do stuff
+
+    # To read the entire file into a variable
+    # This will be very memory inefficient for large files, so avoid doing this when possible.
+    text = f.read()
+</code></pre><p>The above code will open the file as read-only. There are other flags you can pass to the <code>open</code> function to open files with different settings. <code>open(f, &#39;w&#39;)</code> will open <code>f</code> as writable and <code>open(f, &#39;a&#39;)</code> will open <code>f</code> appendable, and all changes will be added to the end of the file.</p>
+<h2 id="objects">Objects</h2>
+<p>Objects are a special data type that can store multiple variables as well as functions.</p>
+<pre><code>class Player:
+    def __init__(self, name):
+        self.name = name
+        self.score = 0
+
+    def win(self):
+        self.score += 1
+
+one = Player(&#39;One&#39;)
+one.win()
+print one.score # 1
+</code></pre><p>This creates a class called Player, that takes one argument when it&#39;s created: name. There&#39;s a built-in Python function that gets called when the object is created called <code>__init__</code>. Note that every function inside a class has the first argument of <code>self</code> which refers to the objectusing the function.</p>
+<h2 id="libraries">Libraries</h2>
+<p>In general, if you ever think about writing something big and complex, someone else has already written it for you. You can use other people&#39;s libraries by installing it using the Python package manager <code>pip</code>, and then adding:</p>
+<pre><code>import library-name
+</code></pre><p>at the top of your program.</p>
+<p>Below are some of my most commonly used packages, as well as what I use them for.</p>
+<ul>
+<li><strong>math</strong>: sin, cos, and other nerd stuff lives here</li>
+<li><strong>random</strong>: <ul>
+<li><code>randint(start, end)</code> will give you a random integer between <code>start</code> and <code>end</code></li>
+<li><code>random</code> will give you a random float between 0 and 1</li>
+<li><code>choice</code> will choose a random element from a list</li>
+</ul>
+</li>
+<li><strong>os</strong>: System calls such as renaming or deleting files or changing directories</li>
+<li><strong>requests</strong>: Making GET requests to websites, to fetch information off the internet for you</li>
+<li><strong>re</strong>: Advanced text search or replace using regular expressions</li>
+</ul>
+<h3 id="os-library">OS Library</h3>
+<p>This section is to get you acquainted with libraries, mainly calling their functions and finding what you need from the documentation. We&#39;re going to be using the <code>os</code> library because it is one of the most common libraries.</p>
+<p>The <code>os</code> library wraps various OS functions, such as opening files, changing the current directory, and renaming and deleting files. Before doing any programming, open the <a href="https://docs.python.org/2/library/os.html">documentation</a> and briefly scroll through all of the features that the <code>os</code> library has.</p>
+<p>Using the <code>os</code> library is as easy as adding</p>
+<pre><code>import os
+</code></pre><p>to the top of your program.</p>
+<p>I&#39;ll list out some of the most common <code>os</code> system calls below.</p>
+<pre><code>&gt;&gt;&gt; os.getcwd() # return what directory the program is being run in
+&gt;&gt;&gt; os.mkdir(&#39;Python&#39;) # make a directory named &#39;Python&#39;
+&gt;&gt;&gt; os.remove(&#39;important.txt&#39;) # delete the given file
+&gt;&gt;&gt; os.listdir(&#39;/etc&#39;) # return a list of all the files in the given directory
+&gt;&gt;&gt; os.rename(&#39;old&#39;, &#39;new&#39;) # rename (or move) file from &#39;old&#39; to &#39;new&#39;
+</code></pre><p>Obviously there&#39;s a lot more that the <code>os</code> library can do, and all of it is listed in its documentation.</p>
+</article>
+
+<script>
+for (let p of document.getElementsByTagName('pre')) {
+	p.className = 'prettyprint lang-py';
+}
+</script>
+<link rel="stylesheet" href="/static/github-markdown.css">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+</body></html>

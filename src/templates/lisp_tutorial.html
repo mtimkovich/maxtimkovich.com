@@ -1,0 +1,290 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet"
+href="/static/github.css" />
+<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
+
+<title>Common Lisp Tutorial</title>
+</head>
+<body>
+
+<div id="container">
+<div id="centered">
+<div id="article">
+<div class="page"> 
+
+<h1>Common Lisp Tutorial</h1>
+
+<p>This is my attempt to make a Common Lisp tutorial, since all of the ones I found on the internet were either out of date or needlessly confusing.</p>
+
+<p>This is a guide that I made of information I wish I had when starting with Lisp. It does assume prior programming knowledge in another language. It's hardly comprehensive, but will hopefully be a good starting place for learning the language. Enjoy!</p>
+
+<h2 id="contents">Contents</h2>
+
+<p><a href="#getting-started">Getting Started</a></p>
+
+<p><a href="#variables-and-data-types">Variables and Data Types</a></p>
+
+<p><a href="#comments">Comments</a></p>
+
+<p><a href="#conditionals">Conditionals</a></p>
+
+<p><a href="#lists">Lists</a></p>
+
+<p><a href="#functions">Functions</a></p>
+
+<p><a href="#functional-programming">Functional Programming</a></p>
+
+<p><a href="#printing">Printing</a></p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>In Lisp, nearly everything is a function. Even the mathematical operators. For example:</p>
+
+<pre><code>(+ (* 2 3) 1)
+</code></pre>
+
+<p>equals 7. </p>
+
+<p>As you can tell, the functions open and close with parenthesis. The format for calling functions in Lisp is</p>
+
+<pre><code>(function arg1 arg2)
+</code></pre>
+
+<h2 id="variables-and-data-types">Variables and Data Types</h2>
+
+<p><code>setq</code> is used to set variables.</p>
+
+<pre><code>(setq var 32)
+(setq str "Texas")
+(setq lst '(1 2 3))
+</code></pre>
+
+<p>The three types of data here are numbers, strings, and lists. Notice that Lisp, unlike Java, is dynamically typed.</p>
+
+<p><em>Note: The <code>'</code> in list statement is called the quote operator, and tells Lisp that the input is a list, and not to interpret it as a function.</em></p>
+
+<p><code>setq</code> sets the variable globally. To create a local variable (e.g. inside a function), use the <code>let</code> function.</p>
+
+<pre><code>(let
+  ((a 1)
+   (b 2))
+
+  ... )
+</code></pre>
+
+<p>The variables <code>a</code> and <code>b</code> will only be defined within <code>let</code>'s parentheses.</p>
+
+<h2 id="comments">Comments</h2>
+
+<p>To comment in Lisp, prefix the line with <code>;</code></p>
+
+<pre><code>; This is a comment!
+</code></pre>
+
+<h2 id="conditionals">Conditionals</h2>
+
+<p>The <code>if</code> statement is a bit different from other programming languages.</p>
+
+<pre><code>(if (&lt; 2 3)
+  (... true ...)
+  (... false ...))
+</code></pre>
+
+<p>Lisp executes the first block of code if the conditional statement is true. The second statement (which is optional) serves as the else statement.</p>
+
+<p>If you want to execute multiple functions in the if statement (which is common) use the <code>progn</code> function, which serves to group multiple functions together.</p>
+
+<pre><code>(if (&gt; 3 4)
+  (progn
+    (setq x (+ x 1))
+    (setq y x))
+  (setq x 0))
+</code></pre>
+
+<p>If you want an if else statement, then you'd want to use the <code>cond</code> function</p>
+
+<pre><code>(cond
+  ((&gt; x 1) (setq y 1)) 
+  ((&lt; x 1) (setq y 2)) 
+  (t (setq y 0)))
+</code></pre>
+
+<p>For boolean values, <code>t</code> represents true, and <code>nil</code> represents false. Lisp treats an empty list <code>'()</code> (or <code>nil</code>) as false and all other inputs as true.</p>
+
+<p>This is a convenient feature of the language to know. For instance, to do something only if a list is not empty, the following two chunks of code are identical.</p>
+
+<pre><code>(if (&gt; (length lst) 0)
+  (...))
+</code></pre>
+
+<!-- -->
+
+<pre><code>(if lst
+  (...))
+</code></pre>
+
+<p>While loops are accomplished in the following manner:</p>
+
+<pre><code>(loop while (&gt; n 0)
+      (setq n (- n 1)))
+</code></pre>
+
+<p>Although for the most part, recursion is the more popular way to accomplish loops.</p>
+
+<h2 id="lists">Lists</h2>
+
+<p>Lists are important in Lisp, which is why Lisp stands for <strong>LIS</strong>t <strong>P</strong>rocessing. I'd recommend reading up on Wikipedia's article on <a href="http://en.wikipedia.org/wiki/Linked_list">linked lists</a> to fully understand this section.</p>
+
+<pre><code>(setq lst '(1 2 3))
+</code></pre>
+
+<p>To get the first item from the list, use the <code>first</code> function. To get the rest of the items, use <code>rest</code>. The are historically known as <code>car</code> and <code>cdr</code>, so you may see it referred to as such in older texts.</p>
+
+<pre><code>(first lst) =&gt; 1
+(rest lst) =&gt; (2 3)
+</code></pre>
+
+<p>Lisp provides some helpful shortcuts to access other items in the list as well.</p>
+
+<pre><code>(second lst) =&gt; 2
+(third lst) =&gt; 3
+(fourth lst) =&gt; nil
+</code></pre>
+
+<p><em>Note: You could access these elements without these functions through repeatedly using <code>first</code> and <code>rest</code>. For instance, <code>second</code> is equivalent to <code>(first (rest lst)))</code>. 
+These functions are to save you a bit of typing.</em></p>
+
+<p>To add an item to the beginning of the list, use the <code>cons</code> function. <code>cons</code> returns a new list with the element prefixed to the beginning of the list.</p>
+
+<pre><code>(cons 0 lst) =&gt; (0 1 2 3)
+</code></pre>
+
+<p>These functions really only make sense in the context of recursion, which is very prevalent in Lisp. Below is an example of a recursive sum function which uses both <code>first</code> and <code>rest</code> in a recursive context.</p>
+
+<pre><code>(defun sum (lst)
+  (if (not lst)
+    0
+    (+ (first lst) (sum (rest lst)))))
+</code></pre>
+
+<h2 id="functions">Functions</h2>
+
+<p><code>defun</code> is used to define functions.</p>
+
+<pre><code>(defun square (x)
+  (* x x))
+
+(defun add (x y)
+  (+ x y))
+</code></pre>
+
+<p><em>Note: Lisp implicitly returns the value of the last statement in a function.</em></p>
+
+<p>Calling functions is pretty straight forward; we've been doing it throughout this guide.</p>
+
+<pre><code>(square 9) =&gt; 81
+(add 2 4) =&gt; 6
+</code></pre>
+
+<h2 id="functional-programming">Functional Programming</h2>
+
+<p>One of Lisp's most powerful features is the ability to pass functions to other functions. I'll list below some of the built in functions in Lisp that take advantage of this feature and are important to know. Most of these functions take two arguments, a function and a list.</p>
+
+<ul>
+<li><code>mapcar</code> (map). Returns the list the results from applying the function to each of the items in the list. The following example returns a new list with all the elements squared.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>(mapcar 'square '(1 2 3 4 5)) =&gt; '(1 4 9 16 25)
+</code></pre>
+
+<ul>
+<li><code>remove-if</code> (filter). Removes items from the list if the item, when plugged into the function, returns true. The following example returns a new list with all the odd numbers removed.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>(remove-if 'oddp '(1 2 3 4 5)) =&gt; '(2 4)
+</code></pre>
+
+<p><em>Note: Built-in functions in Lisp that end in a 'p' are predicates and return a boolean value.</em></p>
+
+<ul>
+<li><code>reduce</code>. Reduces a list to a single value by applying the function to each of the items. The following example is equivalent to the sum function.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>(reduce '+ '(1 2 3 4 5)) =&gt; 15
+</code></pre>
+
+<p>Writing your own function to take in a functions is not particularly hard. Below is an example of how you could implement your own <code>mapcar</code>.</p>
+
+<pre><code>(defun my-mapcar (fn lst)
+  (if lst
+    (cons (funcall fn (first lst)) (my-mapcar fn (rest lst)))))
+</code></pre>
+
+<p><em>Note: <code>funcall</code> is used to run functions that are stored in variables</em></p>
+
+<h3>Anonymous Functions</h3>
+
+<p>It's occasionally useful (particularly with the <a href="http://en.wikipedia.org/wiki/Higher-order_function">higher-order functions</a> listed above) to create a function without a name, typically because it is only getting used once.</p>
+
+<p>For instance, say you wanted to double all the elements in a list. A function to double a number would rarely get used outside this call, so this is a good opportunity to create an anonymous function. The following two chunks of code are equivalent.</p>
+
+<pre><code>(defun double (x) (* x 2))
+
+(mapcar 'double '(1 2 3 4 5)) =&gt; '(1 4 6 8 10)
+</code></pre>
+
+<!-- -->
+
+<pre><code>(mapcar (lambda (x) (* x 2)) '(1 2 3 4 5)) =&gt; '(1 4 6 8 10)
+</code></pre>
+
+<p>It'll be a judgement call whether to go with the brevity of an anonymous function or the readability afforded by naming the function.</p>
+
+<h2 id="printing">Printing</h2>
+
+<p>The <code>print</code> function can be used for basic output.</p>
+
+<pre><code>(print 512)
+</code></pre>
+
+<p>More complicated printing in Lisp is a bit difficult. Lisp has the <code>format</code> function, which is analogous to the <code>printf</code> function in C. The basic structure is</p>
+
+<pre><code>(format t "~a ~a of beer on the wall.~%" 99 "bottles")
+</code></pre>
+
+<p>The <code>t</code> argument means to print to the standard output, <code>~a</code> says to replace with the variable, and <code>~%</code> means newline.</p>
+
+<p>For a more in depth look at Lisp's <code>format</code> function, refer to this chapter in <a href="http://www.gigamonkeys.com/book/a-few-format-recipes.html">Practical Common Lisp</a>. It has everything you could possibly want to know and more about printing in Lisp.</p>
+
+<hr />
+
+<p>by Max Timkovich</p>
+
+<p>last updated August 6, 2014</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<script>
+for (let p of document.getElementsByTagName('pre')) {
+	p.className = 'prettyprint lang-lisp';
+}
+</script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+</body>
+</html>

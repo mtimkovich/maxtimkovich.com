@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>
+            {% if artist %}
+                Top Tracks | {{artist}}
+            {% else %}
+                Top Tracks
+            {% endif %}
+        </title>
+    <style>
+    body {
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    input[type='text'] {
+        width: 200px;
+    }
+
+    #error {
+        color: red;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    td.number {
+        font-size: 40px;
+        font-weight: bold;
+        padding-right: 15px;
+    }
+
+    #sc-logo {
+        position: absolute;
+        bottom: 10;
+        right: 10;
+    }
+    </style>
+    <link rel="shortcut icon" href="{{url_for('top_tracks.static', filename='favicon.png')}}" />
+    </head>
+    <body>
+        <script src="{{url_for('top_tracks.static', filename='validate.js')}}"></script>
+
+        <a href="https://github.com/mtimkovich/top_tracks"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/121cd7cbdc3e4855075ea8b558508b91ac463ac2/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png"></a>
+
+        <a href="top_tracks"><img height="120" src="{{url_for('top_tracks.static', filename='top_tracks.png')}}"></a>
+
+        <div id='error'>{{error}}</div>
+
+        <form action="{{url_for('top_tracks.index')}}" method='post' onsubmit='return validate();'>
+            <input id='artist' name='artist' type='text' value="{{artist if artist is not none else ''}}" placeholder="SoundCloud Username"></input>
+            <input type='submit' value='Go'></input>
+        </form>
+
+        {% if description %}
+            Get a list of the most popular tracks for a SoundCloud artist!
+        {% endif %}
+
+        {% if songs %}
+        <table>
+        {% for song in songs %}
+        <tr>
+            <td class="number">{{loop.index}}</td>
+            <td>
+                <iframe id="audio-{{loop.index0}}" width="500" height="175" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F{{song.id}}&show_artwork=true&maxheight=175&show_playcount=true&download=false&show_comments=false&maxwidth=500"></iframe>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <script src="https://w.soundcloud.com/player/api.js"></script>
+        <script src={{url_for('top_tracks.static', filename='playlist.js')}}></script>
+        {% endif %}
+
+        <a id='sc-logo' href="http://soundcloud.com"><img src="https://developers.soundcloud.com/assets/powered_by_black-4339b4c3c9cf88da9bfb15a16c4f6914.png"></a>
+    </body>
+</html>
