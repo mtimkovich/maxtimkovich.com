@@ -6,7 +6,6 @@ from flask import Blueprint
 import re
 import requests
 import soundcloud
-import yaml
 
 top_tracks = Blueprint('top_tracks', __name__,
         static_folder='static', static_url_path='/static/top_tracks',
@@ -50,6 +49,13 @@ class Track:
 
 @top_tracks.route('/top_tracks/<artist>')
 def track_list(artist=None):
+    if not artist or not re.match('^[a-z0-9_-]+$', artist, re.I):
+        if artist:
+            error = 'Invalid username: {}'.format(artist)
+        else:
+            error = 'Invalid username'
+        return render_template('tt.html', artist=artist, error=error)
+
     if 'SC_CLIENT_ID' not in current_app.config:
         abort(500)
 
