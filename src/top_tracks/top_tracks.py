@@ -67,7 +67,7 @@ def track_list(artist=None):
         user_id = client.get('/resolve', url='http://soundcloud.com/' + artist).id
     except requests.exceptions.HTTPError:
         error = 'User "{}" not found'.format(artist)
-        return render_template(artist=artist, error=error)
+        return render_template('tt.html', artist=artist, error=error)
 
     songs = []
     next_href = '/users/{}/tracks'.format(user_id)
