@@ -36,14 +36,12 @@ def randline(filename):
 
     return output.rstrip()
 
-@friendbot.route('.py', methods=['GET'])
-@friendbot.route('/', methods=['GET'])
-def error():
-    abort(405)
-
-@friendbot.route('.py', methods=['POST'])
-@friendbot.route('/', methods=['POST'])
+@friendbot.route('.py', methods=['GET', 'POST'])
+@friendbot.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'GET':
+        abort(405)
+
     form = request.form
     text = form.get('trigger_word', '')
     all_text = form.get('text', '')

@@ -1,66 +1,15 @@
-from flask import Flask
-from flask import request, render_template
+from flask import Flask, Blueprint, request, render_template, current_app
 
 from bs4 import BeautifulSoup
-import sqlite3
 import re
 import requests
 
 hearthsounds = Blueprint('hearthsounds', __name__, template_folder='templates')
 
 
-def get_card_id(url):
-    m = re.search('/cards/([^/]*)', url)
-    return m.group(1)
-
-
-def search_hearthpwn(query, db):
-    c = db.cursor()
-    c.execute('select card_id from searches where query = ?', (query,))
-    cards = c.fetchall()
-    c.close()
-
-    if cards:
-        results = [r['card_id'] for r in cards]
-
-        return (results, True)
-
-    r = requests.get('http://www.hearthpwn.com/cards/minion',
-                     params={'filter-name': query, 'filter-premium': 1})
-    html = r.text
-    soup = BeautifulSoup(html, 'html.parser')
-    cards = soup.find('tbody').find_all('tr')
-
-    if cards[0].find('td', class_='no-results'):
-        return ([], True)
-
-    results = []
-    for card in cards:
-        details = card.find('td', class_='visual-details-cell')
-        card_url = details.find('h3').find('a')['href']
-        card_id = get_card_id(card_url)
-        results.append(card_id)
-
-    return (results, False)
-
-
-def get_card(card_id, db):
-    card = Card(card_id, db)
-    exists = card.from_sql()
-
-    if not exists:
-        r = requests.get('http://www.hearthpwn.com/cards/' + card_id)
-        html = r.text.encode('utf-8')
-        card.from_html(html)
-        card.insert()
-
-    return card
-
-
 class Card:
-    def __init__(self, card_id, db):
+    def __init__(self, card_id):
         self.card_id = card_id
-        self.db = db
 
     def from_html(self, html):
         soup = BeautifulSoup(html, 'html.parser')
@@ -74,75 +23,54 @@ class Card:
 
             self.sounds.append({'id': id, 'src': src})
 
-    def from_sql(self):
-        self.c = self.db.cursor()
-        self.c.execute('select * from cards where card_id = ? limit 1', (self.card_id,))
-        row = self.c.fetchone()
 
-        if row:
-            self.card_id = row['card_id']
-            self.name = row['name']
-            self.image = row['image']
-
-            self.c.execute('select name, src from sounds where card_id = ?', (self.card_id,))
-
-            self.sounds = []
-
-            for row in self.c:
-                self.sounds.append({'id': row['name'], 'src': row['src']})
-
-            self.c.close()
-            return True
-
-        self.c.close()
-        return False
-
-    def insert(self):
-        self.c = self.db.cursor()
-        self.c.execute('insert into cards (card_id, name, image) values (?, ?, ?)',
-                       (self.card_id, self.name, self.image))
-        for sound in self.sounds:
-            self.c.execute('insert into sounds (card_id, name, src) values (?, ?, ?)',
-                           (self.card_id, sound['id'], sound['src']))
-        self.db.commit()
-        self.c.close()
+def get_card_id(url):
+    m = re.search('/cards/([^/]*)', url)
+    return m.group(1)
 
 
-def connect(db_file):
-    db = sqlite3.connect(db_file)
-    db.row_factory = sqlite3.Row
-    c = db.cursor()
-    c.execute('pragma foreign_keys = ON')
-    c.close()
+def search_hearthpwn(query):
+    r = requests.get('http://www.hearthpwn.com/cards/minion',
+                     params={'filter-name': query, 'filter-premium': 1})
+    html = r.text
+    soup = BeautifulSoup(html, 'html.parser')
+    cards = soup.find('tbody').find_all('tr')
 
-    return db
+    if cards[0].find('td', class_='no-results'):
+        return []
+
+    results = []
+    for card in cards:
+        details = card.find('td', class_='visual-details-cell')
+        card_url = details.find('h3').find('a')['href']
+        card_id = get_card_id(card_url)
+        results.append(card_id)
+
+    return results
 
 
-@app.route('.py')
-@app.route('/')
+def get_card(card_id):
+    card = Card(card_id)
+
+    r = requests.get('http://www.hearthpwn.com/cards/' + card_id)
+    html = r.text.encode('utf-8')
+    card.from_html(html)
+
+    return card
+
+
+@hearthsounds.route('.py')
+@hearthsounds.route('/')
 def index():
     q = request.args.get('q', '')
 
-    db = connect('/home/protected/hearthsounds.db')
-
-    card_name = ''
-    error = ''
     cards = []
 
     if q:
         q = q.lower().strip()
-        results, in_cache = search_hearthpwn(q, db)
+        results = search_hearthpwn(q)
 
-        c = db.cursor()
         for card_id in results:
-            cards.append(get_card(card_id, db))
-
-            if results and not in_cache:
-                c.execute('insert into searches (query, card_id) values (?, ?)', (q, card_id))
-                db.commit()
-        c.close()
-
-
-    db.close()
+            cards.append(get_card(card_id))
 
     return render_template('template.html', q=q, cards=cards)
