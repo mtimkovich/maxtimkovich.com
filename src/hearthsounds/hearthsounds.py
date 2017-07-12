@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 import re
 import requests
 
-hearthsounds = Blueprint('hearthsounds', __name__, template_folder='templates')
+hearthsounds = Blueprint('hs', __name__, template_folder='templates',
+                         static_folder='static', static_url_path='/static/hs/')
 
 
 class Card:

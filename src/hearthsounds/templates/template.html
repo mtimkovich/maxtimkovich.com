@@ -28,7 +28,7 @@
         <h2>{{card.name}}</h2>
         <ul>
         {% for s in card.sounds %}
-            <li><a href="{{s['src']}}">{{s['id']}}</a>  <a style="font-size: 2em" onclick="this.firstChild.play()"><audio src="{{s['src']}}"></audio><img width="16px" src="/img/play.svg"></a></li>
+        <li><a href="{{s['src']}}">{{s['id']}}</a>  <a style="font-size: 2em" onclick="this.firstChild.play()"><audio src="{{s['src']}}"></audio><img width="16px" src={{url_for('hs.static', filename='play.png')}}></a></li>
         {% endfor %}
         </ul>
         </div>

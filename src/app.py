@@ -17,7 +17,7 @@ app.register_blueprint(hearthsounds, url_prefix='/hearthsounds')
 @app.route('/')
 @app.route('/<page>.html')
 @app.route('/<page>')
-def static_page(page='index'):
+def show(page='index'):
     try:
         return render_template('{}.html'.format(page))
     except TemplateNotFound:
