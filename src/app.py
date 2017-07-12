@@ -11,8 +11,8 @@ app.config.from_envvar('FLASK_CONFIG')
 
 # Blueprints
 app.register_blueprint(top_tracks)
-app.register_blueprint(friendbot, url_prefix='/friendbot')
-app.register_blueprint(hearthsounds, url_prefix='/hearthsounds')
+app.register_blueprint(hearthsounds)
+app.register_blueprint(friendbot)
 
 @app.route('/')
 @app.route('/<page>.html')

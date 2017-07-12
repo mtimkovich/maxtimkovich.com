@@ -36,8 +36,8 @@ def randline(filename):
 
     return output.rstrip()
 
-@friendbot.route('.py', methods=['GET', 'POST'])
-@friendbot.route('/', methods=['GET', 'POST'])
+@friendbot.route('/friendbot.py', methods=['GET', 'POST'])
+@friendbot.route('/friendbot', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         abort(405)

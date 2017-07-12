@@ -12,6 +12,7 @@ top_tracks = Blueprint('top_tracks', __name__,
         template_folder='templates')
 
 
+@top_tracks.route('/top_tracks.py', methods=['GET', 'POST'])
 @top_tracks.route('/top_tracks', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
@@ -47,6 +48,7 @@ class Track:
         return self.plays < other.plays
 
 
+@top_tracks.route('/top_tracks.py/<artist>')
 @top_tracks.route('/top_tracks/<artist>')
 def track_list(artist=None):
     if not artist or not re.match('^[a-z0-9_-]+$', artist, re.I):

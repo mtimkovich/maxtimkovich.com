@@ -60,8 +60,8 @@ def get_card(card_id):
     return card
 
 
-@hearthsounds.route('.py')
-@hearthsounds.route('/')
+@hearthsounds.route('/hearthsounds.py')
+@hearthsounds.route('/hearthsounds')
 def index():
     q = request.args.get('q', '')
 
