@@ -1,8 +1,9 @@
-from flask import Flask, Blueprint, request, render_template, current_app
+from flask import Flask, Blueprint, request, render_template
 
 from bs4 import BeautifulSoup
 import re
 import requests
+from requests import RequestException
 
 hearthsounds = Blueprint('hs', __name__, template_folder='templates',
                          static_folder='static', static_url_path='/static/hs')
@@ -11,8 +12,9 @@ hearthsounds = Blueprint('hs', __name__, template_folder='templates',
 class Card:
     def __init__(self, card_id):
         self.card_id = card_id
+        r = requests.get('http://www.hearthpwn.com/cards/' + self.card_id)
+        html = r.text
 
-    def from_html(self, html):
         soup = BeautifulSoup(html, 'html.parser')
         self.name = soup.find('h2').text
         self.image = soup.find('img', class_='hscard-static')['src']
@@ -25,14 +27,10 @@ class Card:
             self.sounds.append({'id': id, 'src': src})
 
 
-def get_card_id(url):
-    m = re.search('/cards/([^/]*)', url)
-    return m.group(1)
-
-
 def search_hearthpwn(query):
     r = requests.get('http://www.hearthpwn.com/cards/minion',
                      params={'filter-name': query, 'filter-premium': 1})
+
     html = r.text
     soup = BeautifulSoup(html, 'html.parser')
     cards = soup.find('tbody').find_all('tr')
@@ -44,20 +42,10 @@ def search_hearthpwn(query):
     for card in cards:
         details = card.find('td', class_='visual-details-cell')
         card_url = details.find('h3').find('a')['href']
-        card_id = get_card_id(card_url)
+        card_id = re.search('/cards/([^/]*)', card_url).group(1)
         results.append(card_id)
 
     return results
-
-
-def get_card(card_id):
-    card = Card(card_id)
-
-    r = requests.get('http://www.hearthpwn.com/cards/' + card_id)
-    html = r.text.encode('utf-8')
-    card.from_html(html)
-
-    return card
 
 
 @hearthsounds.route('/hearthsounds.py')
@@ -69,9 +57,12 @@ def index():
 
     if q:
         q = q.lower().strip()
-        results = search_hearthpwn(q)
+        try:
+            results = search_hearthpwn(q)
 
-        for card_id in results:
-            cards.append(get_card(card_id))
+            for card_id in results:
+                cards.append(Card(card_id))
+        except RequestException:
+            return 'hearthpwn appears to be down'
 
     return render_template('template.html', q=q, cards=cards)
