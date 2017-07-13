@@ -1,27 +1,66 @@
-<html>
-<head>
-<title>Max Timkovich</title>
-<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
-</head>
-<body>
-<div id="hello">
-<!-- My name is Max. -->
-</div>
-<ul>
-<li><a href='https://github.com/mtimkovich'>GitHub</a></li>
-<li><a href={{url_for('show', page='smash_maxpr')}}>Foundry Melee MaxPR</a></li>
-<li><a href='https://play.google.com/store/apps/details?id=com.maxtimkovich.randomemojikeyboard'>Random Emoji Keyboard (Android)</a></li>
-<li><a href={{url_for('top_tracks.index')}}>Top Tracks</a></li>
-<li><a href={{url_for('hs.index')}}>HearthSounds</a></li>
-<li><a href={{url_for('show', page='python_tutorial')}}>Python Tutorial</a></li>
-<li><a href={{url_for('show', page='lisp_tutorial')}}>Lisp Tutorial</a></li>
-<li><a href={{url_for('show', page='random_caps')}}>RaNDOm CaPs</a></li>
-<li><a href={{url_for('show', page='textarea')}}>Textarea</a></li>
-</ul>
-<br>
-<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#120;&#64;&#109;&#97;&#120;&#116;&#105;&#109;&#107;&#111;&#118;&#105;&#99;&#104;&#46;&#99;&#111;&#109;"><img width=24px height=auto src="/img/mail.svg"></a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/img/blank.png">
 
-<script>
+    <title>Max Timkovich</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1 id="hello"></h1>
+      </div>
+
+      <p class="lead">My Stuff</p>
+
+      <div class="row">
+          <div class="col-lg-6">
+              <h4><a href="https://github.com/mtimkovich">GitHub</a></h4>
+              <p>Source code.</p>
+
+              <h4><a href="https://play.google.com/store/apps/details?id=com.maxtimkovich.randomemojikeyboard">Random Emoji Keyboard</a></h4>
+              <p>The most powerful predictive keyboard for Android.</p>
+
+              <h4><a href={{url_for('hs.index')}}>HearthSounds</a></h4>
+              <p>Get Hearthstone card sounds.</p>
+
+              <h4><a href={{url_for('show', page='lisp_tutorial')}}>Lisp Tutorial</a></h4>
+              <p>A minimal nonsense intro Common Lisp.</p>
+
+              <h4><a href={{url_for('show', page='textarea')}}>Textarea</a></h4>
+              <p>It's just a textarea.</p>
+          </div>
+
+          <div class="col-lg-6">
+              <h4><a href="{{url_for('show', page='smash_maxpr')}}">Foundry Melee MaxPR</a></h4>
+              <p>Elo rankings for Get Smashed at the Foundry (RIP).</p>
+
+              <h4><a href={{url_for('top_tracks.index')}}>Top Tracks</a></h4>
+              <p>Get the most played tracks for a SoundCloud artist.</p>
+
+              <h4><a href={{url_for('show', page='python_tutorial')}}>Python Tutorial</a></h4>
+              <p>Python 2.7 guide guide for physics majors.</p>
+
+              <h4><a href={{url_for('show', page='random_caps')}}>RaNDOm CaPs</a></h4>
+              <p>GEnErate gaRbage LikE THiS.</p>
+          </div>
+      </div>
+    </div>
+
+    <script>
 function hello() {
     var msgs = [
         'My name is Max.',
@@ -35,6 +74,6 @@ function hello() {
 
 var msg = document.getElementById('hello');
 msg.textContent = hello();
-</script>
-</body>
+    </script>
+  </body>
 </html>
