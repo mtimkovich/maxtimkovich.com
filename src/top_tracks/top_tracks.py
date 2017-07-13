@@ -1,15 +1,17 @@
-from flask import Flask
-from flask import render_template, request, url_for, redirect
-from flask import current_app, abort
-from flask import Blueprint
+from flask import Flask, Blueprint, render_template, request, url_for, \
+        redirect, current_app, abort
 
 import re
 import requests
 import soundcloud
 
 top_tracks = Blueprint('top_tracks', __name__,
-        static_folder='static', static_url_path='/static/top_tracks',
-        template_folder='templates')
+                       static_folder='static', static_url_path='/static/top_tracks',
+                       template_folder='templates')
+
+
+def valid_username(artist):
+    return re.match('^[a-z0-9_-]+$', artist, re.I)
 
 
 @top_tracks.route('/top_tracks.py', methods=['GET', 'POST'])
@@ -22,14 +24,10 @@ def index():
         artist = request.form.get('artist', '')
         artist = artist.strip()
 
-        if artist and re.match('^[a-z0-9_-]+$', artist, re.I):
-            return redirect(url_for('top_tracks.track_list', artist=artist))
-        else:
-            if artist:
-                error = 'Invalid username: {}'.format(artist)
-            else:
-                error = 'Invalid username'
-            return render_template('tt.html', artist=artist, error=error)
+        if not valid_username(artist):
+            return render_template('tt.html', artist=artist, error='Invalid username')
+
+        return redirect(url_for('top_tracks.track_list', artist=artist))
 
 
 class Track:
@@ -51,12 +49,8 @@ class Track:
 @top_tracks.route('/top_tracks.py/<artist>')
 @top_tracks.route('/top_tracks/<artist>')
 def track_list(artist=None):
-    if not artist or not re.match('^[a-z0-9_-]+$', artist, re.I):
-        if artist:
-            error = 'Invalid username: {}'.format(artist)
-        else:
-            error = 'Invalid username'
-        return render_template('tt.html', artist=artist, error=error)
+    if not valid_username(artist):
+        return render_template('tt.html', artist=artist, error='Invalid username')
 
     if 'SC_CLIENT_ID' not in current_app.config:
         abort(500)

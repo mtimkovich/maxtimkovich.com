@@ -47,7 +47,13 @@
 
         <a href="{{url_for('top_tracks.index')}}"><img height="120" src="/img/top_tracks.png"></a>
 
-        <div id='error'>{{error}}</div>
+        {% if error %}
+        <div id='error'>{{error}}
+            {% if artist %}
+            : '{{artist}}'
+            {% endif %}
+        </div>
+        {% endif %}
 
         <form action="{{url_for('top_tracks.index')}}" method='post' onsubmit='return validate();'>
             <input id='artist' name='artist' type='text' value="{{artist if artist is not none else ''}}" placeholder="SoundCloud Username"></input>

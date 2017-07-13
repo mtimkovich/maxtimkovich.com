@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 . venv/bin/activate
 export FLASK_APP=app.py
