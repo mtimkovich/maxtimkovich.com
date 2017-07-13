@@ -3,15 +3,35 @@ from flask import Flask, Blueprint, render_template, request, url_for, \
 
 import re
 import requests
+from requests import HTTPError
 import soundcloud
 
 top_tracks = Blueprint('top_tracks', __name__,
                        static_folder='static', static_url_path='/static/top_tracks',
                        template_folder='templates')
 
+valid_username = re.compile('^[a-z0-9_-]+$', re.I)
 
-def valid_username(artist):
-    return re.match('^[a-z0-9_-]+$', artist, re.I)
+def get_artist_name(artist):
+    """
+    Get the artist name from a soundcloud url
+    or validate given artist name
+    return None for invalid input
+    """
+    artist = artist.strip()
+
+    if 'soundcloud.com/' in artist:
+        m = re.search('soundcloud\.com/([^/]*)', artist)
+
+        if m is None:
+            return None
+
+        artist = m.group(1)
+
+    if not re.match(valid_username, artist):
+        return None
+
+    return artist
 
 
 @top_tracks.route('/top_tracks.py', methods=['GET', 'POST'])
@@ -22,12 +42,14 @@ def index():
 
     elif request.method == 'POST':
         artist = request.form.get('artist', '')
-        artist = artist.strip()
 
-        if not valid_username(artist):
-            return render_template('tt.html', artist=artist, error='Invalid username')
+        artist_new = get_artist_name(artist)
 
-        return redirect(url_for('top_tracks.track_list', artist=artist))
+        if artist_new is None:
+            error = 'Invalid username or URL: "{}"'.format(artist)
+            return render_template('tt.html', artist=artist, error=error)
+
+        return redirect(url_for('top_tracks.track_list', artist=artist_new))
 
 
 class Track:
@@ -49,8 +71,9 @@ class Track:
 @top_tracks.route('/top_tracks.py/<artist>')
 @top_tracks.route('/top_tracks/<artist>')
 def track_list(artist=None):
-    if not valid_username(artist):
-        return render_template('tt.html', artist=artist, error='Invalid username')
+    if not re.match(valid_username, artist):
+        error = 'Invalid username or URL: "{}"'.format(artist)
+        return render_template('tt.html', artist=artist, error=error)
 
     if 'SC_CLIENT_ID' not in current_app.config:
         abort(500)
@@ -59,7 +82,7 @@ def track_list(artist=None):
 
     try:
         user_id = client.get('/resolve', url='http://soundcloud.com/' + artist).id
-    except requests.exceptions.HTTPError:
+    except HTTPError:
         error = 'User "{}" not found'.format(artist)
         return render_template('tt.html', artist=artist, error=error)
 
