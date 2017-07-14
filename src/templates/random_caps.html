@@ -1,38 +1,46 @@
-<html>
-<head>
-<title>Random Caps</title>
-<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
-<style>
-h1 {
-    font-weight: bold;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/img/blank.png">
 
-.error {
-    color: red;
-    font-weight: bold;
-}
-</style>
-</head>
-<body>
-    <h1>RaNDOm CaPs</h1>
-    <p>
+    <title>Max Timkovich</title>
 
-<form id="form" action="#" onsubmit="return getRandCaps()">
-    <table>
-        <tr>
-            <td><label>Text</label></td>
-            <td><input type="text" id="text"/></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Submit" /></td>
-        </tr>
-    </table>
-</form>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<div id="result"></div>
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
 
-<script src="{{url_for('static', filename='randCaps.js')}}"></script>
+  </head>
 
-</body>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>RaNDOm CaPs</h1>
+      </div>
+
+      <form id="form" class="form-horizontal" action="#" onsubmit="return getRandCaps()">
+          <div class="form-group">
+              <label for="text" class="col-sm-2 col-form-label">Text</label>
+              <div class="col-sm-10">
+                  <div class="input-group">
+                      <input type="text" id="text" class="form-control">
+                      <span class="input-group-btn">
+                          <button class="btn btn-primary" type="submit">Submit</button>
+                      </span>
+                  </div>
+              </div>
+          </div>
+      </form>
+
+      <div id="result"></div>
+
+    </div>
+    <script src="{{url_for('static', filename='randCaps.js')}}"></script>
+  </body>
 </html>
