@@ -18,6 +18,9 @@ app.register_blueprint(friendbot)
 @app.route('/<page>.html')
 @app.route('/<page>')
 def show(page='index'):
+    if page == 'base':
+        abort(404)
+
     try:
         return render_template('{}.html'.format(page))
     except TemplateNotFound:

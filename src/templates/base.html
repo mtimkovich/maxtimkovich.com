@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/img/blank.png">
 
-    <title>Max Timkovich</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -21,24 +21,10 @@
   <body>
     <div class="container">
       <div class="page-header">
-        <h1>RaNDOm CaPs</h1>
+          <h1>{{self.title()}}</h1>
       </div>
-
-      <form id="form" action="#" onsubmit="return getRandCaps()">
-          <div class="form-group">
-              <label for="text">Text</label>
-              <div class="input-group">
-                  <input type="text" id="text" class="form-control">
-                  <span class="input-group-btn">
-                      <button class="btn btn-primary" type="submit">Submit</button>
-                  </span>
-              </div>
-          </div>
-      </form>
-
-      <div id="result"></div>
-
-    </div>
-    <script src="{{url_for('static', filename='randCaps.js')}}"></script>
+      
+      {% block content %}
+      {% endblock %}
   </body>
 </html>

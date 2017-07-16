@@ -1,64 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/img/blank.png">
+{% extends "base.html" %}
+{% block title %}Max Timkovich{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-6">
+        <h4><a href="https://github.com/mtimkovich">GitHub</a></h4>
+        <p>Source code.</p>
 
-    <title>Max Timkovich</title>
+        <h4><a href="https://play.google.com/store/apps/details?id=com.maxtimkovich.randomemojikeyboard">Random Emoji Keyboard</a></h4>
+        <p>The most powerful predictive keyboard for Android.</p>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <h4><a href={{url_for('hs.index')}}>HearthSounds</a></h4>
+        <p>Get Hearthstone card sounds.</p>
 
-    <!-- Custom styles for this template -->
-    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+        <h4><a href={{url_for('show', page='lisp_tutorial')}}>Lisp Tutorial</a></h4>
+        <p>A minimal nonsense intro to Common Lisp.</p>
 
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="page-header">
-        <h1 id="hello"></h1>
-      </div>
-
-      <div class="row">
-          <div class="col-sm-6">
-              <h4><a href="https://github.com/mtimkovich">GitHub</a></h4>
-              <p>Source code.</p>
-
-              <h4><a href="https://play.google.com/store/apps/details?id=com.maxtimkovich.randomemojikeyboard">Random Emoji Keyboard</a></h4>
-              <p>The most powerful predictive keyboard for Android.</p>
-
-              <h4><a href={{url_for('hs.index')}}>HearthSounds</a></h4>
-              <p>Get Hearthstone card sounds.</p>
-
-              <h4><a href={{url_for('show', page='lisp_tutorial')}}>Lisp Tutorial</a></h4>
-              <p>A minimal nonsense intro to Common Lisp.</p>
-
-              <h4><a href={{url_for('show', page='textarea')}}>Textarea</a></h4>
-              <p>It's just a textarea.</p>
-          </div>
-
-          <div class="col-sm-6">
-              <h4><a href="{{url_for('show', page='smash_maxpr')}}">Foundry Melee MaxPR</a></h4>
-              <p>Elo rankings for Get Smashed at the Foundry (RIP).</p>
-
-              <h4><a href={{url_for('top_tracks.index')}}>Top Tracks</a></h4>
-              <p>Get the most played tracks for a SoundCloud artist.</p>
-
-              <h4><a href={{url_for('show', page='python_tutorial')}}>Python Tutorial</a></h4>
-              <p>Python 2.7 guide guide for physics majors.</p>
-
-              <h4><a href={{url_for('show', page='random_caps')}}>RaNDOm CaPs</a></h4>
-              <p>GEnErate gaRbage LikE THiS.</p>
-          </div>
-      </div>
+        <h4><a href={{url_for('show', page='textarea')}}>Textarea</a></h4>
+        <p>It's just a textarea.</p>
     </div>
 
-    <script>
+    <div class="col-sm-6">
+        <h4><a href="{{url_for('show', page='smash_maxpr')}}">Foundry Melee MaxPR</a></h4>
+        <p>Elo rankings for Get Smashed at the Foundry (RIP).</p>
+
+        <h4><a href={{url_for('top_tracks.index')}}>Top Tracks</a></h4>
+        <p>Get the most played tracks for a SoundCloud artist.</p>
+
+        <h4><a href={{url_for('show', page='python_tutorial')}}>Python Tutorial</a></h4>
+        <p>Python 2.7 guide guide for physics majors.</p>
+
+        <h4><a href={{url_for('show', page='random_caps')}}>RaNDOm CaPs</a></h4>
+        <p>GEnErate gaRbage LikE THiS.</p>
+    </div>
+</div>
+
+<script>
 function hello() {
     var msgs = [
         'My name is Max.',
@@ -70,8 +46,7 @@ function hello() {
     return msgs[Math.floor(Math.random() * msgs.length)];
 }
 
-var msg = document.getElementById('hello');
+var msg = document.getElementsByClassName('page-header')[0].children[0];
 msg.textContent = hello();
-    </script>
-  </body>
-</html>
+</script>
+{% endblock %}
