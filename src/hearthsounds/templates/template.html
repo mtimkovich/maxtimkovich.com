@@ -32,10 +32,10 @@
             <div class="col-sm-6" style="margin-top: 40px">
                 <div class="list-group">
                     {% for s in card.sounds %}
-                    <a class="list-group-item" href="{{s['src']}}">{{s['id']}}
+                    <a class="list-group-item" onclick="return playAudio(this);" href="{{s['src']}}">{{s['id']}}
                         <span class="pull-right">
-                            <span class="btn btn-xs btn-default" onclick="return playAudio(this);">
-                                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                            <span class="btn btn-xs btn-default" onclick="window.location.href=this.parentElement.parentElement.href;">
+                                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                             </span>
                         </span>
                     </a>
@@ -48,9 +48,8 @@
 {% endfor %}
 
 <script>
-function playAudio(span) {
-    var sound = span.parentElement.parentElement;
-    var a = new Audio(sound.href);
+function playAudio(link) {
+    var a = new Audio(link.href);
     a.play();
 
     return false;
