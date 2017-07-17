@@ -19,12 +19,22 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="page-header">
-          <h1>{{self.title()}}</h1>
+      <div class="navbar navbar-default navbar-static-top">
+          <div class="container">
+              <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                      <li><a class="navbar-brand" href="{{url_for('show')}}">home</a></li>
+                  </ul>
+              </div>
+          </div>
       </div>
-      
-      {% block content %}
-      {% endblock %}
+
+      <div class="container">
+          <div class="page-header">
+              <h1>{{self.title()}}</h1>
+          </div>
+
+          {% block content %}
+          {% endblock %}
   </body>
 </html>
