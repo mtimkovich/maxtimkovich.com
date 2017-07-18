@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, render_template
+from flask import Flask, Blueprint, request, render_template, redirect, url_for
 
 from bs4 import BeautifulSoup
 import re
@@ -49,6 +49,9 @@ def search_hearthpwn(query):
 
 
 @hearthsounds.route('/hearthsounds.py')
+def dotpy():
+    return redirect(url_for('hs.index', **request.args))
+
 @hearthsounds.route('/hearthsounds')
 def index():
     q = request.args.get('q', '')

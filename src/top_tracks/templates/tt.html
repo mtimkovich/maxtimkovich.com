@@ -9,7 +9,7 @@ Top Tracks
 {% block head %}
 <link rel="shortcut icon" href="/img/tt_favicon.png" />
 {% endblock %}
-{% block header %}<a href="{{url_for('top_tracks.index')}}"><img height="120" src="/img/top_tracks.png"></a>{% endblock %}
+{% block header %}<a href="{{url_for('tt.index')}}"><img height="120" src="/img/top_tracks.png"></a>{% endblock %}
 
 
 {% block content %}
@@ -23,11 +23,11 @@ Top Tracks
 
 </style>
 
-<script src={{url_for('top_tracks.static', filename='validate.js')}}></script>
+<script src={{url_for('tt.static', filename='validate.js')}}></script>
 
 <div id='error'>{{error}}</div>
 
-<form action="{{url_for('top_tracks.index')}}" method='post' onsubmit='return validate();'>
+<form action="{{url_for('tt.index')}}" method='post' onsubmit='return validate();'>
     <div class="form-group">
         <div class="input-group">
             <input id='artist' name='artist' type='text' class="form-control" value="{{artist if artist is not none else ''}}" placeholder="SoundCloud Username or URL"></input>
@@ -53,7 +53,7 @@ Get a list of the most popular tracks for a SoundCloud artist!
 </div>
 
 <script src="https://w.soundcloud.com/player/api.js"></script>
-<script src={{url_for('top_tracks.static', filename='playlist.js')}}></script>
+<script src={{url_for('tt.static', filename='playlist.js')}}></script>
 {% endif %}
 
 <a id='sc-logo' href="http://soundcloud.com"><img src="https://developers.soundcloud.com/assets/powered_by_black-4339b4c3c9cf88da9bfb15a16c4f6914.png"></a>

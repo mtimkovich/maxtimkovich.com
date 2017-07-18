@@ -6,7 +6,7 @@ import requests
 from requests import HTTPError
 import soundcloud
 
-top_tracks = Blueprint('top_tracks', __name__,
+top_tracks = Blueprint('tt', __name__,
                        static_folder='static', static_url_path='/static/top_tracks',
                        template_folder='templates')
 
@@ -34,7 +34,10 @@ def get_artist_name(artist):
     return artist
 
 
-@top_tracks.route('/top_tracks.py', methods=['GET', 'POST'])
+@top_tracks.route('/top_tracks.py')
+def dotpy():
+    return redirect(url_for('tt.index'))
+
 @top_tracks.route('/top_tracks', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
@@ -49,7 +52,7 @@ def index():
             error = 'Invalid username or URL: "{}"'.format(artist)
             return render_template('tt.html', artist=artist, error=error)
 
-        return redirect(url_for('top_tracks.track_list', artist=artist_new))
+        return redirect(url_for('tt.track_list', artist=artist_new))
 
 
 class Track:
@@ -69,6 +72,9 @@ class Track:
 
 
 @top_tracks.route('/top_tracks.py/<artist>')
+def dotpy_artist(artist=None):
+    return redirect(url_for('tt.track_list', artist=artist))
+
 @top_tracks.route('/top_tracks/<artist>')
 def track_list(artist=None):
     if not re.match(valid_username, artist):

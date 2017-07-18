@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, jsonify, current_app, \
-                  request, abort, url_for
+                  request, abort, url_for, redirect
 
 import os
 import random
@@ -36,6 +36,9 @@ def randline(filename):
 
 
 @friendbot.route('/friendbot.py', methods=['GET', 'POST'])
+def dotpy():
+    return redirect(url_for('fb.index', **request.form), code=307)
+
 @friendbot.route('/friendbot', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
