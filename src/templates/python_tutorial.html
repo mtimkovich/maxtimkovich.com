@@ -1,29 +1,24 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Python Tutorial</title>
-<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
-<style></style></head><body id="preview">
+{% extends "base.html" %}
+{% block title %}Python Tutorial{% endblock %}
+{% block header %}Python Tutorial{% endblock %}
 
-<style>
-    .markdown-body {
-        box-sizing: border-box;
-        min-width: 200px;
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 45px;
-    }
-</style>
-<article class="markdown-body">
-<h1 id="python-tutorial">Python Tutorial</h1>
-<p>by Max Timkovich<br>Updated: 2017-5-04</p>
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='tutorial.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<p>by Max Timkovich<br>Updated: 2017-7-18</p>
 <p><em>for Paul, Nick, and Nathan: so you guys can have some marketable skills.</em></p>
 <h2 id="introduction">Introduction</h2>
 <p>Python is a pretty cool programming language. It&#39;s easy to read and write and runs on a bunch of different operating systems. Despite being relatively easy to learn, it&#39;s not a toy; it&#39;s used on websites like YouTube, reddit, and Dropbox.</p>
 <p>This tutorial isn&#39;t exhaustive, but should be a good starting point, and for learning what Python is about.</p>
 <h2 id="downloading-python">Downloading Python</h2>
-<p>This tutorial will be for Python 2.7. Python 3 exists and does some really nice stuff with unicode handling, but many libraries are still using Python 2, so will we. Python 3 is very similar though, so it&#39;s not difficult at all to transition from one to the other.</p>
-<p>You can download Python 2.7 <a href="https://www.python.org/downloads/">here</a>.</p>
+<p>This tutorial will be for Python 3. Python 3 has a lot of nice performance improvements from Python 2 as well as better Unicode handling.</p>
+<p>You can download Python 3 <a href="https://www.python.org/downloads/">here</a>.</p>
 <h2 id="getting-started">Getting started</h2>
 <p>Open Python. On Windows, it&#39;ll be called IDLE. It&#39;ll give you this:</p>
-<p><img src="http://i.imgur.com/KGWEK1h.png?1" alt="repl"></p>
+<p><img src="/img/python_repl.png" alt="repl"></p>
 <p>This is a REPL (read-eval-print loop). Anything you type will be run and printed to the screen. This is really useful for playing around with Python and trying out new concepts. You should try out most of the things in the tutorial in the REPL.</p>
 <p>Here&#39;s some stuff to try out to get a feel for Python. Hit enter after each command to have it run.</p>
 <pre><code># Printing stuff to the screen
@@ -79,15 +74,15 @@ for variable in iterable:
 
 # e.g.
 for i in range(6):
-    print i,
+    print(i, end=' ')
 
 # Output: 1, 2, 3, 4, 5
 </code></pre><h3 id="printing">Printing</h3>
 <pre><code># Display variable&#39;s value
-print value
+print(value)
 
 # Advanced printing
-print &#39;Hello, {}!&#39;.format(&#39;World&#39;)
+print(&#39;Hello, {}!&#39;.format(&#39;World&#39;))
 
 # Output: &#39;Hello, World!&#39;
 </code></pre><p>Everything else is just a bonus.</p>
@@ -239,7 +234,7 @@ square(19) # 361
 
 one = Player(&#39;One&#39;)
 one.win()
-print one.score # 1
+print(one.score) # 1
 </code></pre><p>This creates a class called Player, that takes one argument when it&#39;s created: name. There&#39;s a built-in Python function that gets called when the object is created called <code>__init__</code>. Note that every function inside a class has the first argument of <code>self</code> which refers to the objectusing the function.</p>
 <h2 id="libraries">Libraries</h2>
 <p>In general, if you ever think about writing something big and complex, someone else has already written it for you. You can use other people&#39;s libraries by installing it using the Python package manager <code>pip</code>, and then adding:</p>
@@ -280,5 +275,4 @@ for (let p of document.getElementsByTagName('pre')) {
 </script>
 <link rel="stylesheet" href="/static/github-markdown.css">
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-
-</body></html>
+{% endblock %}

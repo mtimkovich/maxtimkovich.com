@@ -1,46 +1,37 @@
-<!DOCTYPE html
-PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% extends "base.html" %}
+{% block title %}Common Lisp Tutorial{% endblock %}
+{% block header %}Common Lisp Tutorial{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='tutorial.css')}}">
+<style>
 
-<link rel="stylesheet"
-href="/static/github.css" />
-<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    margin-top: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    color: #333;
+}
 
-<title>Common Lisp Tutorial</title>
-</head>
-<body>
+.post pre { margin-bottom: 20px }
+.prettyprint {
+    overflow-x: auto;
+    padding: 1.5em;
+    border: 0;
+    line-height: 1.9em;
+}
+</style>
+{% endblock %}
 
-<div id="container">
-<div id="centered">
-<div id="article">
-<div class="page"> 
-
-<h1>Common Lisp Tutorial</h1>
+{% block content %}
 
 <p>This is my attempt to make a Common Lisp tutorial, since all of the ones I found on the internet were either out of date or needlessly confusing.</p>
 
 <p>This is a guide that I made of information I wish I had when starting with Lisp. It does assume prior programming knowledge in another language. It's hardly comprehensive, but will hopefully be a good starting place for learning the language. Enjoy!</p>
-
-<h2 id="contents">Contents</h2>
-
-<p><a href="#getting-started">Getting Started</a></p>
-
-<p><a href="#variables-and-data-types">Variables and Data Types</a></p>
-
-<p><a href="#comments">Comments</a></p>
-
-<p><a href="#conditionals">Conditionals</a></p>
-
-<p><a href="#lists">Lists</a></p>
-
-<p><a href="#functions">Functions</a></p>
-
-<p><a href="#functional-programming">Functional Programming</a></p>
-
-<p><a href="#printing">Printing</a></p>
 
 <h2 id="getting-started">Getting Started</h2>
 
@@ -285,6 +276,4 @@ for (let p of document.getElementsByTagName('pre')) {
 }
 </script>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-
-</body>
-</html>
+{% endblock %}
