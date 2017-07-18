@@ -1,51 +1,53 @@
-<html>
-<head>
-<title>Time Til Gold</title>
-<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
-<style>
-h1 {
-    font-weight: bold;
-}
-
-.error {
-    color: red;
-    font-weight: bold;
-}
-</style>
-</head>
-<body>
-    <h1>Time Til Golden Hero</h1>
-    <i>Disappoint yourself!</i>
-    <p>
-
+{% extends "base.html" %}
+{% block title %}Time Til Gold Hero{% endblock %}
+{% block header %}Time Til Golden Hero{% endblock %}
+{% block content %}
+<p class="lead">Disappoint yourself!</p>
 <span id="error_msg" class="error"></span>
 <form id="form">
-    <table>
-        <tr>
-            <td><label id="played">Ranked Games Won</label></td>
-            <td><input type="text" name="played" /></td>
-        </tr>
-        <tr>
-            <td><label id="win_rate">Win Rate <a href="#" title="55% or 60% if you're good, 50% if you're bad">[?]</a></label></td>
-            <td><input type="text" name="win_rate" /> %</td>
-        </tr>
-        <tr>
-            <td><label id="game_time">Average Game Time <a href="#" title="~5m aggro, ~7m midrange, ~10m+ control/combo">[?]</a></label></td>
-            <td><input type="text" name="game_time" /> minutes</td>
-        </tr>
-        <tr>
-            <td><label>Result <a href="#" title="How long (on average) of straight playing before you get your golden hero">[?]</a></label></td>
-            <td><input type="text" name="result" readonly />  hours</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="button" value="Submit" onclick="calculate()" /></td>
-        </tr>
-    </table>
+    <div class="form-group">
+        <label id="played">Ranked Games Won</label>
+        <input type="text" class="form-control" name="played" />
+    </div>
+
+    <div class="form-group">
+        <label id="win_rate">Win Rate</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="win_rate" />
+            <span class="input-group-addon">%</span>
+        </div>
+        <small id="passwordHelpBlock" class="text-muted">
+        55% or 60% if you're good, 50% if you're bad.
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label id="game_time">Average Game Time</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="game_time" />
+            <span class="input-group-addon">minutes</span>
+        </div>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+        ~5m aggro, ~7m midrange, ~10m+ control/combo
+        </small>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="calculate()" />Go!</button>
+
+    <div class="form-group" style="margin-top: 10px">
+        <label>Result</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="result" readonly />
+            <span class="input-group-addon">hours</span>
+        </div>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+        How long (on average) of straight playing before you get your golden hero
+        </small>
+    </div>
 </form>
 
-<p><a href="img/math.png">The math</a>
-<p>Created by Max Timkovich
+<p><a href="img/math.png">The math</a></p>
+<p>Created by Max Timkovich</p>
 
 
 <script>
@@ -105,5 +107,4 @@ function calculate() {
     form.result.value = result.toFixed(2);
 }
 </script>
-</body>
-</html>
+{% endblock %}

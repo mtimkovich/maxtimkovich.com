@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Random Integers{% endblock %}
+{% block header %}Random Integers{% endblock %}
+{% block content %}
+<form>
+    <div class="form-group">
+        <label id="minLabel">Min</label>
+        <input type="text" id="min" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label id="maxLabel">Max</label>
+        <input type="text" id="max" class="form-control">
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="randint();">Go!</button>
+
+    <div class="form-group" style="margin-top: 10px">
+        <label>Result</label>
+        <input type="text" id="result" class="form-control" readonly>
+</form>
+
+<script>
+function randint() {
+    var form = document.getElementsByTagName('form')[0];
+
+    var min = parseInt(form.min.value);
+    var max = parseInt(form.max.value);
+    var error = false;
+
+    if (isNaN(min)) {
+        document.getElementById('minLabel').className += " error"
+        error = true;
+    }
+
+    if (isNaN(max)) {
+        document.getElementById('maxLabel').className += " error"
+        error = true;
+    }
+
+    if (!error) {
+        form.result.value = Math.floor(Math.random() * (max-min+1) + min);
+    }
+}
+</script>
+
+{% endblock %}
