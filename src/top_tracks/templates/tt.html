@@ -1,79 +1,60 @@
-<html>
-    <head>
-        <title>
-            {% if artist %}
-                Top Tracks | {{artist}}
-            {% else %}
-                Top Tracks
-            {% endif %}
-        </title>
-    <style>
-    body {
-        text-align: center;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    }
+{% extends "base.html" %}            
+{% block title %}
+{% if artist %}
+Top Tracks | {{artist}}
+{% else %}
+Top Tracks
+{% endif %}
+{% endblock %}
+{% block head %}
+<link rel="shortcut icon" href="/img/tt_favicon.png" />
+{% endblock %}
+{% block header %}<a href="{{url_for('top_tracks.index')}}"><img height="120" src="/img/top_tracks.png"></a>{% endblock %}
 
-    input[type='text'] {
-        width: 200px;
-    }
 
-    #error {
-        color: red;
-    }
+{% block content %}
 
-    table {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    td.number {
+<style>
+.number {
         font-size: 40px;
         font-weight: bold;
         padding-right: 15px;
-    }
+}
 
-    #sc-logo {
-        position: absolute;
-        bottom: 10;
-        right: 10;
-    }
-    </style>
-    <link rel="shortcut icon" href="/img/tt_favicon.png" />
-    </head>
-    <body>
-        <script src={{url_for('top_tracks.static', filename='validate.js')}}></script>
+</style>
 
-        <a href="https://github.com/mtimkovich/maxtimkovich.com/tree/master/src/top_tracks"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+<script src={{url_for('top_tracks.static', filename='validate.js')}}></script>
 
-        <a href="{{url_for('top_tracks.index')}}"><img height="120" src="/img/top_tracks.png"></a>
+<div id='error'>{{error}}</div>
 
-        <div id='error'>{{error}}</div>
+<form action="{{url_for('top_tracks.index')}}" method='post' onsubmit='return validate();'>
+    <div class="form-group">
+        <div class="input-group">
+            <input id='artist' name='artist' type='text' class="form-control" value="{{artist if artist is not none else ''}}" placeholder="SoundCloud Username or URL"></input>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Go!</button>
+            </span>
+        </div>
+    </div>
+</form>
 
-        <form action="{{url_for('top_tracks.index')}}" method='post' onsubmit='return validate();'>
-            <input id='artist' name='artist' type='text' value="{{artist if artist is not none else ''}}" placeholder="SoundCloud Username or URL"></input>
-            <input type='submit' value='Go'></input>
-        </form>
+{% if description %}
+Get a list of the most popular tracks for a SoundCloud artist!
+{% endif %}
 
-        {% if description %}
-            Get a list of the most popular tracks for a SoundCloud artist!
-        {% endif %}
+{% if songs %}
+<div class="list-group">
+    {% for song in songs %}
+    <li class="list-group-item">
+        <span class="number pull-left">{{loop.index}}</span>
+        <iframe id="audio-{{loop.index0}}" width="500" height="175" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F{{song.id}}&show_artwork=true&maxheight=175&show_playcount=true&download=false&show_comments=false&maxwidth=500"></iframe>
+    </li>
+    {% endfor %}
+</div>
 
-        {% if songs %}
-        <table>
-        {% for song in songs %}
-        <tr>
-            <td class="number">{{loop.index}}</td>
-            <td>
-                <iframe id="audio-{{loop.index0}}" width="500" height="175" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F{{song.id}}&show_artwork=true&maxheight=175&show_playcount=true&download=false&show_comments=false&maxwidth=500"></iframe>
-                </td>
-            </tr>
-        {% endfor %}
-        </table>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src={{url_for('top_tracks.static', filename='playlist.js')}}></script>
+{% endif %}
 
-        <script src="https://w.soundcloud.com/player/api.js"></script>
-        <script src={{url_for('top_tracks.static', filename='playlist.js')}}></script>
-        {% endif %}
-
-        <a id='sc-logo' href="http://soundcloud.com"><img src="https://developers.soundcloud.com/assets/powered_by_black-4339b4c3c9cf88da9bfb15a16c4f6914.png"></a>
-    </body>
-</html>
+<a id='sc-logo' href="http://soundcloud.com"><img src="https://developers.soundcloud.com/assets/powered_by_black-4339b4c3c9cf88da9bfb15a16c4f6914.png"></a>
+{% endblock %}
