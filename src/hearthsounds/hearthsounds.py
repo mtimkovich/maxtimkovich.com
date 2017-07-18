@@ -56,7 +56,7 @@ def index():
     cards = []
 
     if q:
-        q = q.lower().strip()
+        q = q.strip()
         try:
             results = search_hearthpwn(q)
 

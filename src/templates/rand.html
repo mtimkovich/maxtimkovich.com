@@ -29,13 +29,17 @@ function randint() {
     var error = false;
 
     if (isNaN(min)) {
-        document.getElementById('minLabel').className += " error"
+        document.getElementById('minLabel').className += " error";
         error = true;
+    } else {
+        document.getElementById('minLabel').className = "";
     }
 
     if (isNaN(max)) {
-        document.getElementById('maxLabel').className += " error"
+        document.getElementById('maxLabel').className += " error";
         error = true;
+    } else {
+        document.getElementById('maxLabel').className = "";
     }
 
     if (!error) {
