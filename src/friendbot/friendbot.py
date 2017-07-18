@@ -1,12 +1,10 @@
-from flask import Flask, Blueprint, jsonify, current_app
-from flask import request, abort, url_for
+from flask import Flask, Blueprint, jsonify, current_app, \
+                  request, abort, url_for
 
-import json
 import os
 import random
-import sys
 
-friendbot = Blueprint('fb', __name__, static_folder='friends')
+friendbot = Blueprint('fb', __name__)
 
 
 def is_comment(s):
@@ -35,6 +33,7 @@ def randline(filename):
             i += 1
 
     return output.rstrip()
+
 
 @friendbot.route('/friendbot.py', methods=['GET', 'POST'])
 @friendbot.route('/friendbot', methods=['GET', 'POST'])
