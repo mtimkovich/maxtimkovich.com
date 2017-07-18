@@ -60,6 +60,7 @@ def index():
         'U410D66MA': 'max',
         'U40SH115Z': 'jonat',
         'U5DQGRFHQ': 'lawrence',
+        'U45VC1JDQ': 'ben',
     }
 
     if text.startswith('!') and text.endswith('bot'):
