@@ -22,24 +22,24 @@
 
 <script>
 function randint() {
-    var form = document.getElementsByTagName('form')[0];
+    var form = $('form')[0];
 
     var min = parseInt(form.min.value);
     var max = parseInt(form.max.value);
     var error = false;
 
     if (isNaN(min)) {
-        document.getElementById('minLabel').className += " error";
+        $('#minLabel').addClass("error");
         error = true;
     } else {
-        document.getElementById('minLabel').className = "";
+        $('#minLabel').removeClass("error");
     }
 
     if (isNaN(max)) {
-        document.getElementById('maxLabel').className += " error";
+        $('#maxLabel').addClass("error");
         error = true;
     } else {
-        document.getElementById('maxLabel').className = "";
+        $('#maxLabel').removeClass("error");
     }
 
     if (!error) {

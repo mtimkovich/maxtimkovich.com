@@ -40,7 +40,6 @@ function hello() {
     return msgs[Math.floor(Math.random() * msgs.length)];
 }
 
-var msg = document.getElementsByClassName('page-header')[0].children[0];
-msg.textContent = hello();
+$('.page-header h1').text(hello);
 </script>
 {% endblock %}
