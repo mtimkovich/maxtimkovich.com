@@ -9,7 +9,6 @@ from hearthsounds.hearthsounds import hearthsounds
 
 class Config:
     SC_CLIENT_ID = os.getenv('SC_CLIENT_ID')
-    FLASK_DEBUG = os.getenv('FLASK_DEBUG', 0)
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
