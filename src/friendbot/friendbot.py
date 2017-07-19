@@ -1,10 +1,12 @@
 from flask import Flask, Blueprint, jsonify, current_app, \
                   request, abort, url_for, redirect
 
+import csv
 import os
 import random
 
 friendbot = Blueprint('fb', __name__)
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 def is_comment(s):
@@ -35,6 +37,15 @@ def randline(filename):
     return output.rstrip()
 
 
+def get_name_from_id(id):
+    with open(os.path.join(APP_ROOT, 'slack_ids.csv')) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row['slack_id'] == id:
+                return row['name']
+        return None
+
+
 @friendbot.route('/friendbot.py', methods=['GET', 'POST'])
 @friendbot.route('/friendbot', methods=['GET', 'POST'])
 def index():
@@ -42,41 +53,30 @@ def index():
         abort(405)
 
     form = request.form
-    text = form.get('trigger_word', '')
-    all_text = form.get('text', '')
+    trigger_word = form.get('trigger_word', '')
+    text = form.get('text', '')
     domain = form.get('team_domain', '')
     user = form.get('user_name', '${name}')
 
     if domain != 'thelonelybear':
         abort(400)
 
-    # Map Slack IDs to names
-    friend_map = {
-        'U406YM1JL': 'justin',
-        'U40UP9YEN': 'claire',
-        'U407FJ7KK': 'jay',
-        'U407EU12M': 'ernest',
-        'U407JD1K3': 'boston',
-        'U410D66MA': 'max',
-        'U40SH115Z': 'jonat',
-        'U5DQGRFHQ': 'lawrence',
-        'U45VC1JDQ': 'ben',
-    }
-
-    if text.startswith('!') and text.endswith('bot'):
-        friend = text[1:-3]
-    elif text.startswith('<@'):
+    if trigger_word.startswith('!') and trigger_word.endswith('bot'):
+        friend = trigger_word[1:-3]
+    elif trigger_word.startswith('<@'):
         # This is a file upload, ignore it
-        if ('uploaded a file:' in all_text or
-                'commented on' in all_text or
-                'set the' in all_text):
+        if ('uploaded a file:' in text or
+                'commented on' in text or
+                'set the' in text):
             return jsonify({})
 
-        friend = friend_map[text[2:]]
+        friend = get_name_from_id(trigger_word[2:])
+
+        if friend is None:
+            abort(400)
     else:
         abort(400)
 
-    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     friends_dir = os.path.join(APP_ROOT, 'friends')
 
     for txt in os.listdir(friends_dir):
