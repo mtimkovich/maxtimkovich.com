@@ -3,6 +3,8 @@
 {% block header %}Common Lisp Tutorial{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{url_for('static', filename='tutorial.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='prettify.css')}}">
+<script src="{{url_for('static', filename='prettify.js')}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -250,6 +252,6 @@ These functions are to save you a bit of typing.</em></p>
 
 <script>
 $('pre').addClass('prettyprint lang-lisp');
+PR.prettyPrint();
 </script>
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 {% endblock %}

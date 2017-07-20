@@ -12,11 +12,3 @@ h2 {
     padding-bottom: 0.3em;
     border-bottom: 1px solid #eaecef;
 }
-
-.post pre { margin-bottom: 20px }
-.prettyprint {
-    overflow-x: auto;
-    padding: 1.5em;
-    border: 0;
-    line-height: 1.9em;
-}
