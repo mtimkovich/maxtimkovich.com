@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Common Lisp Tutorial{% endblock %}
-{% block header %}Common Lisp Tutorial{% endblock %}
+{% block header %}{{self.title()}}{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{url_for('static', filename='tutorial.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='prettify.css')}}">
