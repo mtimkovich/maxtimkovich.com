@@ -51,12 +51,7 @@
 
 /* Put a border around prettyprinted code snippets. */
 /* no dont */
-pre.prettyprint {
-    padding: 16px;
-    overflow: auto;
-    line-height: 1.45em;
-    background-color: #f6f8fa;
-}
+pre.prettyprint { background-color: #f6f8fa; }
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
