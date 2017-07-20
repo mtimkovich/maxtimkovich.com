@@ -12,6 +12,24 @@ body p + h4 {
   margin-top: 28px;
 }
 
+@media (min-width: 480px) {
+    .navbar-nav > li > a, .navbar-brand {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        vertical-align: middle;
+        height: 40px;
+    }
+}
+
+.navbar {
+    min-height: 40px;
+}
+
+.navbar-brand {
+    font-size: 14px;
+}
+
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
