@@ -5,19 +5,23 @@ import os
 from top_tracks.top_tracks import top_tracks
 from friendbot.friendbot import friendbot
 from hearthsounds.hearthsounds import hearthsounds
+from saved_posts.saved_posts import saved_posts
 
 
 class Config:
     SC_CLIENT_ID = os.getenv('SC_CLIENT_ID')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'SUPER_SECRET_KEY')
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config.from_object(__name__+'.Config')
+app.secret_key = app.config['SECRET_KEY']
 
 # Blueprints
 app.register_blueprint(top_tracks)
 app.register_blueprint(hearthsounds)
 app.register_blueprint(friendbot)
+app.register_blueprint(saved_posts, url_prefix='/saved_posts')
 
 
 @app.route('/')
