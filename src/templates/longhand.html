@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Longhand</title>
+<link rel="shortcut icon" type="image/png" href="/img/blank.png"/>
+<style>
+h1 {
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+    <h1>Longhand</h1>
+    <i>Convert number to cardinal form</i>
+    <p>
+
+<span id="error_msg" class="error"></span>
+<form id="form" action="#" onsubmit="return getLonghand()">
+    <table>
+        <tr>
+            <td><label>Number</label></td>
+            <td><input type="text" id="number"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" /></td>
+        </tr>
+    </table>
+</form>
+
+<div id="result"></div>
+
+<script src="{{url_for('static', filename='longhand.js')}}"></script>
+
+</body>
+</html>
