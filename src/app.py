@@ -24,6 +24,11 @@ app.register_blueprint(friendbot)
 app.register_blueprint(saved_posts, url_prefix='/saved_posts')
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 @app.route('/')
 @app.route('/<page>.html')
 @app.route('/<page>')
