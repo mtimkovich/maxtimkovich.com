@@ -1,3 +1,9 @@
 [submodule "src/top_tracks"]
 	path = src/top_tracks
 	url = https://github.com/mtimkovich/top_tracks
+[submodule "src/hearthsounds"]
+	path = src/hearthsounds
+	url = https://github.com/mtimkovich/hearthsounds
+[submodule "src/saved_posts"]
+	path = src/saved_posts
+	url = https://github.com/mtimkovich/saved_posts
