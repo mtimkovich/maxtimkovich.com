@@ -3,12 +3,15 @@
 The source code of my website, the aptly named [maxtimkovich.com](http://maxtimkovich.com).
 
 ## Projects
-- [HearthSounds](https://github.com/mtimkovich/maxtimkovich.com/tree/master/src/hearthsounds)
-- [Top Tracks](https://github.com/mtimkovich/maxtimkovich.com/tree/master/src/top_tracks)
+- [HearthSounds][1] - Get sound files of Hearthstone cards 
+- [Top Tracks][2] - Show the most popular tracks for SoundCloud artists
+- [Saved Posts][3] - Organize your saved reddit posts
 
 ## Usage
 
 ```bash
+git submodule update --init --recursive
+./make_requirements.txt.sh
 python3 -m virtualenv venv
 pip install -r requirements.txt
 ```
@@ -23,3 +26,7 @@ Max Timkovich
 ## Licence
 
 See the LICENSE file for more info.
+
+[1]: https://github.com/mtimkovich/hearthsounds
+[2]: https://github.com/mtimkovich/top_tracks
+[3]: https://github.com/mtimkovich/saved_posts
