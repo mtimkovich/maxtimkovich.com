@@ -11,6 +11,7 @@ from saved_posts.saved_posts import saved_posts
 class Config:
     SC_CLIENT_ID = os.getenv('SC_CLIENT_ID')
     SECRET_KEY = os.getenv('SECRET_KEY', 'SUPER_SECRET_KEY')
+    SAVED_DB = os.getenv('SAVED_DB', 'saved.db')
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
