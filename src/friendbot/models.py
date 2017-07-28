@@ -1,16 +1,11 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import func
 
-import os
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///friends.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 
 class Friend(db.Model):
+    __bind_key__ = 'friends'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True)
     slack_id = db.Column(db.String(10), unique=True)
@@ -26,6 +21,8 @@ class Friend(db.Model):
 
 
 class Phrase(db.Model):
+    __bind_key__ = 'friends'
+
     id = db.Column(db.Integer, primary_key=True)
     line = db.Column(db.Text())
     friend_id = db.Column(db.Integer, db.ForeignKey('friend.id'))
