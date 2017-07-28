@@ -1,35 +1,18 @@
 from flask import Flask, Blueprint, jsonify, current_app, \
                   request, abort, url_for, redirect
-
 from sqlalchemy.sql import func
-import csv
-import os
-import sys
-
 from friendbot.models import db, Friend, Phrase
 
 friendbot = Blueprint('fb', __name__)
 
 
-# @friendbot.record
-# def record_params(setup_state):
-#     app = setup_state.app
-
-#     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + 'friends.db'
-#     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-#     db.init_app(app)
-
-
 @friendbot.route('/friendbot.py', methods=['GET', 'POST'])
 @friendbot.route('/friendbot', methods=['GET', 'POST'])
 def index():
-    # if request.method == 'GET':
-    #     abort(405)
+    if request.method == 'GET':
+        abort(405)
 
-
-    # form = request.form
-    form = request.args
+    form = request.form
     trigger_word = form.get('trigger_word', '')
     text = form.get('text', '')
     domain = form.get('team_domain', '')
