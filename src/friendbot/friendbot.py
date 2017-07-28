@@ -1,7 +1,6 @@
-from flask import Flask, Blueprint, jsonify, current_app, \
-                  request, abort, url_for, redirect
+from flask import Flask, Blueprint, jsonify, request, abort
 from sqlalchemy.sql import func
-from friendbot.models import db, Friend, Phrase
+from friendbot.models import Friend
 
 friendbot = Blueprint('fb', __name__)
 

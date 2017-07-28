@@ -31,6 +31,7 @@ app.register_blueprint(friendbot)
 app.register_blueprint(saved_posts, url_prefix='/saved_posts')
 
 # DB Stuff
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 app.config['SQLALCHEMY_BINDS'] = {
     'friends': 'sqlite:///' + app.config['FRIENDS_DB'],
     'saved': 'sqlite:///' + app.config['SAVED_DB'],
