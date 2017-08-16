@@ -19,6 +19,9 @@ class Config:
     SAVED_DB = os.getenv('SAVED_DB', 'saved.db')
     FRIENDS_DB = os.getenv('FRIENDS_DB', 'friends.db')
 
+    SLACK_VERIFY_TOKEN = os.getenv('SLACK_VERIFY_TOKEN')
+    SLACK_BOT_TOKEN = os.getenv('SLACK_BOT_TOKEN')
+
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config.from_object(__name__+'.Config')

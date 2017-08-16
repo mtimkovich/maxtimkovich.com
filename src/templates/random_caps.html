@@ -4,9 +4,9 @@
 {% block content %}
 <form id="form" action="#" onsubmit="return getRandCaps()">
     <div class="form-group">
-        <label for="text">Text</label>
+        <label for="text" class="sr-only">Text</label>
         <div class="input-group">
-            <input type="text" id="text" class="form-control">
+            <input type="text" id="text" class="form-control" placeholder="Text">
             <span class="input-group-btn">
                 <button class="btn btn-primary" type="submit">Submit</button>
             </span>
