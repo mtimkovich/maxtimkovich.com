@@ -58,7 +58,7 @@ def index():
     TOKEN = current_app.config['SLACK_VERIFY_TOKEN']
     form = request.get_json()
 
-    current_app.logger.error(form)
+    # current_app.logger.error(form)
 
     if form['token'] != TOKEN:
         abort(403)
@@ -81,7 +81,7 @@ def index():
             if ((text.startswith('!') and text.endswith('bot')) or
                     text.startswith('<@')):
                 return get_phrase(text, event)
-            elif 'max' in text.lower():
+            elif re.search('ma+x', text, re.I):
                 sc = SlackClient(current_app.config['SLACK_BOT_TOKEN'])
 
                 sc.api_call(
