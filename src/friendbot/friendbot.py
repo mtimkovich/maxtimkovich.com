@@ -81,7 +81,7 @@ def index():
             if ((text.startswith('!') and text.endswith('bot')) or
                     text.startswith('<@')):
                 return get_phrase(text, event)
-            elif re.search('ma+x', text, re.I):
+            elif re.search('ma+(x|cks)', text, re.I):
                 sc = SlackClient(current_app.config['SLACK_BOT_TOKEN'])
 
                 sc.api_call(
