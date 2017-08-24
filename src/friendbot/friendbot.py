@@ -44,12 +44,16 @@ def get_phrase(text, event):
         'parse': 'full'
     }
 
+    emoji_icons = {
+        'claire': ':chandyw:',
+        'max': ':max:',
+        'lawrence': ':man_with_turban:'
+    }
+
     if name == 'friendbot':
         pass
-    elif name == 'claire':
-        args['icon_emoji'] = ':chandyw:'
-    elif name == 'max':
-        args['icon_emoji'] = ':max:'
+    elif name in emoji_icons:
+        args['icon_emoji'] = emoji_icons[name]
     else:
         args['icon_url'] = 'https://maxtimkovich.com/img/friends/{}.jpg'.format(name)
 
