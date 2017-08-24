@@ -1,8 +1,10 @@
 from flask import Flask, Blueprint, jsonify, request, abort, current_app, \
         make_response
 from sqlalchemy.sql import func
-from friendbot.models import Friend
 from slackclient import SlackClient
+
+from friendbot.models import Friend
+
 import re
 
 friendbot = Blueprint('fb', __name__)
@@ -42,7 +44,13 @@ def get_phrase(text, event):
         'parse': 'full'
     }
 
-    if name != 'friendbot':
+    if name == 'friendbot':
+        pass
+    elif name == 'claire':
+        args['icon_emoji'] = ':chandyw:'
+    elif name == 'max':
+        args['icon_emoji'] = ':max:'
+    else:
         args['icon_url'] = 'https://maxtimkovich.com/img/friends/{}.jpg'.format(name)
 
     sc.api_call(
