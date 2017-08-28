@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Emote Sentences{% endblock %}
+{% block header %}Emote Sentences{% endblock %}
+{% block content %}
+
+<script src="{{url_for('static', filename='emotes.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+<form>
+    <div class="form-group">
+        <label class="sr-only">Text</label>
+        <input type="text" id="text" placeholder="Text" class="form-control">
+        <small id="passwordHelpBlock" class="text-muted">
+            Allowable characters: letters, spaces, ".", and "!"
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label class="sr-only">Emote</label>
+        <input type="text" id="emote" placeholder="Emote" class="form-control">
+        <small id="passwordHelpBlock" class="text-muted">
+            :emote: 
+        </small>
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="slack();">Go!</button>
+    </div>
+
+    <div class="form-group">
+        <textarea id="result" class="form-control" style="font-family: monospace" rows="20" readonly></textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-secondary copy-button" data-clipboard-target="#result">
+            Copy to clipboard
+        </button>
+    </div>
+</form>
+
+<script>
+var clipboard = new Clipboard('.copy-button');
+</script>
+{% endblock %}
