@@ -106,3 +106,97 @@ def index():
                 return make_response("Mission Complete!", 200,)
 
     return make_response('Not for friendbot', 200,)
+
+
+def emotifier(emote, phrase):
+    characters = {
+        ' ': '-----',
+        '.': '00001',
+        '!': '11101',
+        'a': '75755',
+        'b': '75757',
+        'c': '71117',
+        'd': '35553',
+        'e': '71717',
+        'f': '71711',
+        'g': '71757',
+        'h': '55755',
+        'i': '72227',
+        'j': '44457',
+        'k': '55355',
+        'l': '11117',
+        'm': '57555',
+        'n': '75555',
+        'o': '75557',
+        'p': '75711',
+        'q': '75744',
+        'r': '75355',
+        's': '71747',
+        't': '72222',
+        'u': '55557',
+        'v': '55552',
+        'w': '55575',
+        'x': '55255',
+        'y': '55222',
+        'z': '74717',
+    }
+
+    display = {
+        '7': 'ccc',
+        '5': 'c c',
+        '4': '  c',
+        '3': 'cc ',
+        '2': ' c ',
+        '1': 'c  ',
+        '0': '   ',
+    }
+
+    output = ''
+    for i in range(5):
+        for c in phrase:
+            line = characters[c][i]
+
+            if line == '-':
+                output += ':blank:'
+                continue
+
+            line_out = display[line]
+
+            line_out = line_out.replace(' ', ':blank:')
+            line_out = line_out.replace('c', emote)
+
+            output += line_out + ' '
+
+        output += '\n'
+
+    return output
+
+
+@friendbot.route('/emotify', methods=['POST'])
+def emotify():
+    form = request.form
+
+    if form.get('token', '') != current_app.config['SLACK_VERIFY_TOKEN']:
+        return make_response('', 200,)
+
+    text = form.get('text', '')
+
+    if not text:
+        return make_response("Request can't be empty :max:", 200,)
+
+    text = text.lower()
+    split = text.split()
+    emote = split[0]
+    phrase = ' '.join(split[1:])
+
+    if len(phrase.replace(' ', '')) > 12:
+        return make_response("Phrases need to be shorter than 12 characters :max:", 200,)
+    elif emote[0] != ':' or emote[-1] != ':':
+        return make_response("Emotes start and end with ':' :max:", 200,)
+    elif not re.search('^[a-z.! ]+$', phrase):
+        return make_response("Invalid phrase. Phrases can only be composed of letters, spaces, '.', and '!' :max:", 200,)
+
+    return jsonify({
+        'response_type': 'in_channel',
+        'text': emotifier(emote, phrase),
+    })
