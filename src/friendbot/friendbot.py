@@ -164,7 +164,7 @@ def emotifier(emote, phrase):
             line_out = line_out.replace(' ', ':blank:')
             line_out = line_out.replace('c', emote)
 
-            output += line_out + '  '
+            output += line_out + '    '
 
         output += '\n'
 
@@ -188,9 +188,7 @@ def emotify():
     emote = split[0]
     phrase = ' '.join(split[1:])
 
-    if len(phrase.replace(' ', '')) > 12:
-        return make_response("Phrases need to be shorter than 12 characters :max:", 200,)
-    elif emote[0] != ':' or emote[-1] != ':':
+    if emote[0] != ':' or emote[-1] != ':':
         return make_response("Emotes start and end with ':' :max:", 200,)
     elif not re.search('^[a-z.! ]+$', phrase):
         return make_response("Invalid phrase. Phrases can only be composed of letters, spaces, '.', and '!' :max:", 200,)
