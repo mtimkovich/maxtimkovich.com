@@ -237,11 +237,26 @@ square(19) # 361
 one = Player(&#39;One&#39;)
 one.win()
 print(one.score) # 1
-</code></pre><p>This creates a class called Player, that takes one argument when it&#39;s created: name. There&#39;s a built-in Python function that gets called when the object is created called <code>__init__</code>. Note that every function inside a class has the first argument of <code>self</code> which refers to the objectusing the function.</p>
+</code></pre><p>This creates a class called Player, that takes one argument when it&#39;s created: name. There&#39;s a built-in Python function that gets called when the object is created called <code>__init__</code>. Note that every function inside a class has the first argument of <code>self</code> which refers to the object using the function.</p>
 <h2 id="libraries">Libraries</h2>
 <p>In general, if you ever think about writing something big and complex, someone else has already written it for you. You can use other people&#39;s libraries by installing it using the Python package manager <code>pip</code>, and then adding:</p>
-<pre><code>import library-name
-</code></pre><p>at the top of your program.</p>
+<pre><code>import library
+</code></pre><p>at the top of your program.</p>Now, you can use the functions and objects in `library` by prefixing them with `library`: e.g. `library.function()`.
+
+<p>There&#39;s two other ways to import libraries into your program.</p>
+
+<pre><code>import library as lb</code></pre> 
+
+<p>Same as normally importing a library, but you can give it a different name if, for instance, the default library name is long and you&#39;re using it a lot</p>
+
+<pre><code>from library import func1, func2</code></pre> 
+
+<p>Imports only `func1` and `func2` from library. You no longer have to prefix those functions with the library name to use them.</p>
+
+<pre><code>from library import *</code></pre> 
+
+<p>Imports *all* objects and functions from library into the current program. Use this sparingly, as it can clutter your project&#39;s namespace in confusing ways.</p>
+
 <p>Below are some of my most commonly used packages, as well as what I use them for.</p>
 <ul>
 <li><strong>math</strong>: sin, cos, and other nerd stuff lives here</li>
@@ -268,6 +283,11 @@ print(one.score) # 1
 &gt;&gt;&gt; os.listdir(&#39;/etc&#39;) # return a list of all the files in the given directory
 &gt;&gt;&gt; os.rename(&#39;old&#39;, &#39;new&#39;) # rename (or move) file from &#39;old&#39; to &#39;new&#39;
 </code></pre><p>Obviously there&#39;s a lot more that the <code>os</code> library can do, and all of it is listed in its documentation.</p>
+
+<h3 id="numpy-scipy">NumPy/Scipy Library</h3>
+<p>The NumPy and SciPy libraries for Python that provides functions and data models to help Python function like Matlab.</p>
+
+<p><a href="https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html">NumPy for Matlab users</a> is a great resource for learning how to use NumPy. If you know Matlab, you can look up the corresponding NumPy function, and, if you don&#39;t, it&#39;s great for looking up the common things you&#39;d want to do with NumPy.</p>
 </article>
 
 <script>
