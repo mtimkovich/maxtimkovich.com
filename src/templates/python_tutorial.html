@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<p>by Max Timkovich<br>Updated: 2017-7-18</p>
+<p>by Max Timkovich<br>Updated: 2017-9-19</p>
 <p><em>for Paul, Nick, and Nathan: so you guys can have some marketable skills.</em></p>
 <h2 id="introduction">Introduction</h2>
 <p>Python is a pretty cool programming language. It&#39;s easy to read and write and runs on a bunch of different operating systems. Despite being relatively easy to learn, it&#39;s not a toy; it&#39;s used on websites like YouTube, reddit, and Dropbox.</p>
@@ -241,7 +241,7 @@ print(one.score) # 1
 <h2 id="libraries">Libraries</h2>
 <p>In general, if you ever think about writing something big and complex, someone else has already written it for you. You can use other people&#39;s libraries by installing it using the Python package manager <code>pip</code>, and then adding:</p>
 <pre><code>import library
-</code></pre><p>at the top of your program.</p>Now, you can use the functions and objects in `library` by prefixing them with `library`: e.g. `library.function()`.
+</code></pre><p>at the top of your program.</p>Now, you can use the functions and objects in <code>library</code> by prefixing them with <code>library</code>: e.g. <code>library.function()</code>.
 
 <p>There&#39;s two other ways to import libraries into your program.</p>
 
@@ -251,12 +251,13 @@ print(one.score) # 1
 
 <pre><code>from library import func1, func2</code></pre> 
 
-<p>Imports only `func1` and `func2` from library. You no longer have to prefix those functions with the library name to use them.</p>
+<p>Imports only <code>func1</code> and <code>func2</code> from library. You no longer have to prefix those functions with the library name to use them.</p>
 
 <pre><code>from library import *</code></pre> 
 
-<p>Imports *all* objects and functions from library into the current program. Use this sparingly, as it can clutter your project&#39;s namespace in confusing ways.</p>
+<p>Imports <em>all</em> objects and functions from library into the current program. Use this sparingly, as it can clutter your project&#39;s namespace in confusing ways.</p>
 
+<h3 id="libraries">Common Libraries</h3>
 <p>Below are some of my most commonly used packages, as well as what I use them for.</p>
 <ul>
 <li><strong>math</strong>: sin, cos, and other nerd stuff lives here</li>

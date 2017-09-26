@@ -15,9 +15,11 @@ def get_phrase(text, event):
         friend = Friend.query.filter_by(name=text[1:-3]).first()
 
     elif text.startswith('<@'):
+        current_app.logger.error(text)
         # This is a file upload, ignore it
         if ('uploaded a file:' in text or
                 'commented on' in text or
+                'pinned ' in text or
                 'set the' in text):
             return make_response('Ignoring', 200,)
 
