@@ -35,32 +35,34 @@
   </head>
 
   <body>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-          <a class="navbar-brand" href="{{url_for('show')}}">Home</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                      <a class="nav-link" href="https://twitter.com/DJSwerveGG">Twitter</a></li>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="https://open.spotify.com/user/xeeew">Spotify</a></li>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="https://soundcloud.com/DJSwerveGG">SoundCloud</a></li>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tools</a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="{{url_for('show', page='rand')}}">Random Integers</a>
-                          <a class="dropdown-item" href="{{url_for('show', page='random_caps')}}">RanDOm CApS</a>
-                          <a class="dropdown-item" href="{{url_for('show', page='longhand')}}">Longhand</a>
-                          <a class="dropdown-item" href="{{url_for('show', page='textarea')}}">Textarea</a>
-                      </div>
-                  </li>
-              </ul>
+      <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+          <div class="container">
+              <a class="navbar-brand" href="{{url_for('show')}}">Home</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                  <ul class="navbar-nav mr-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="https://twitter.com/DJSwerveGG">Twitter</a></li>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="https://open.spotify.com/user/xeeew">Spotify</a></li>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="https://soundcloud.com/DJSwerveGG">SoundCloud</a></li>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tools</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="{{url_for('show', page='rand')}}">Random Integers</a>
+                              <a class="dropdown-item" href="{{url_for('show', page='random_caps')}}">RanDOm CApS</a>
+                              <a class="dropdown-item" href="{{url_for('show', page='longhand')}}">Longhand</a>
+                              <a class="dropdown-item" href="{{url_for('show', page='textarea')}}">Textarea</a>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
           </div>
       </nav>
 

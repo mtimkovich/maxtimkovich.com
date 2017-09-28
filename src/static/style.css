@@ -16,9 +16,13 @@ body p + h4 {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
+.navbar {
+    display: block;
+}
+
 .container {
   width: auto;
-  max-width: 680px;
+  max-width: 994px;
   padding: 0 15px;
 }
 .container .text-muted {
