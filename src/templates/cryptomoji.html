@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Cryptomoji 🔒{% endblock %}
+{% block header %}Cryptomoji 🔒{% endblock %}
+{% block content %}
+<p class="lead">Encrypt messages as emoji!</p>
+<span id="error_msg" class="error"></span>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h2>Encrypt</h2>
+        <form id="encrypt">
+            <div class="form-group">
+                <label id="message">Message</label>
+                <input type="text" class="form-control" name="message" />
+            </div>
+
+            <div class="form-group">
+                <label id="message">Emoji Passphrase</label>
+                <input type="text" class="form-control" name="passphrase" />
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="doEncrypt()" />Encrypt!</button>
+            </div>
+
+            <div class="form-group">
+                <label>Encrypted Message</label>
+                <button type="button" class="btn btn-outline-secondary btn-sm copy" data-clipboard-target="#result">
+                    <img width="16px" src="https://clipboardjs.com/assets/images/clippy.svg" alt="Copy to clipboard">
+                </button>
+                <textarea class="form-control" name="result" id="result" rows=3 readonly /></textarea>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-6">
+        <h2>Decrypt</h2>
+        <form id="decrypt">
+            <div class="form-group">
+                <label id="message">Encrypted Emoji Message</label>
+                <input type="text" class="form-control" name="cypher" />
+            </div>
+
+            <div class="form-group">
+                <label id="message">Emoji Passphrase</label>
+                <input type="text" class="form-control" name="passphrase" />
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="doDecrypt()" />Decrypt!</button>
+            </div>
+
+            <div class="form-group">
+                <label>Decrypted Message</label>
+                <textarea class="form-control" name="result" rows=3 readonly /></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src={{url_for('static', filename='cryptomoji.js')}}></script>
+
+<script>
+var clipboard = new Clipboard('.copy');
+
+function doEncrypt() {
+    var msg = $('#encrypt input[name="message"]').val();
+    var key = $('#encrypt input[name="passphrase"]').val();
+
+    msg = msg.toLowerCase();
+    msg = msg.replace(/[^a-z]+/g, '');
+
+    var result = $('#encrypt textarea[name="result"]');
+
+    result.val(encrypt(msg, key));
+}
+
+function doDecrypt() {
+    var cypher = $('#decrypt input[name="cypher"]').val();
+    var key = $('#decrypt input[name="passphrase"]').val();
+
+    var result = $('#decrypt textarea[name="result"]');
+
+    result.val(decrypt(cypher, key));
+}
+</script>
+
+<p>Created by Max Timkovich</p>
+
+{% endblock %}
