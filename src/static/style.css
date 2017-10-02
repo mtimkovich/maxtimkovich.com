@@ -20,6 +20,11 @@ body p + h4 {
     display: block;
 }
 
+.navbar-brand {
+    font-size: 1rem;
+    color: rgba(0,0,0,.5);
+}
+
 .container {
   width: auto;
   max-width: 994px;
@@ -33,3 +38,10 @@ body p + h4 {
     color: red;
     font-weight: bold;
 }
+
+@media screen and (min-width: 768px) {
+    .rwd-break {
+        display: none;
+    }
+}
+

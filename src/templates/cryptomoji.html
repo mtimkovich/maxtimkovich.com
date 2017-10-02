@@ -2,7 +2,9 @@
 {% block title %}Cryptomoji 🔒{% endblock %}
 {% block header %}Cryptomoji 🔒{% endblock %}
 {% block content %}
-<p class="lead">Encrypt messages as emoji!</p>
+<p class="lead">Encrypt messages as emoji!
+<br class="rwd-break">
+🌯🇲🇼🛍🐚🎱🇮🇳🚲</p>
 <span id="error_msg" class="error"></span>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 
@@ -11,12 +13,12 @@
         <h2>Encrypt</h2>
         <form id="encrypt">
             <div class="form-group">
-                <label id="message">Message</label>
+                <label name="message">Message</label>
                 <input type="text" class="form-control" name="message" />
             </div>
 
             <div class="form-group">
-                <label id="message">Emoji Passphrase</label>
+                <label name="passphrase">Emoji Passphrase</label>
                 <input type="text" class="form-control" name="passphrase" />
             </div>
 
@@ -38,12 +40,12 @@
         <h2>Decrypt</h2>
         <form id="decrypt">
             <div class="form-group">
-                <label id="message">Encrypted Emoji Message</label>
-                <input type="text" class="form-control" name="cypher" />
+                <label name="message">Encrypted Emoji Message</label>
+                <input type="text" class="form-control" name="message" />
             </div>
 
             <div class="form-group">
-                <label id="message">Emoji Passphrase</label>
+                <label name="passphrase">Emoji Passphrase</label>
                 <input type="text" class="form-control" name="passphrase" />
             </div>
 
@@ -64,25 +66,66 @@
 <script>
 var clipboard = new Clipboard('.copy');
 
+function isBlank(str) {
+    return !str || /^\s*$/.test(str);
+}
+
+function getInput(form) {
+    var values = {'error': false};
+
+    var fields = form.find('input');
+    for (let i = 0; i < fields.length; i++) {
+        let field = fields.eq(i);
+        let name = field.attr('name');
+        values[name] = field.val();
+
+        if (isBlank(field.val())) {
+            form.find('label[name='+name+']').addClass('error');
+            values['error'] = true;
+        }
+    }
+
+    return values;
+}
+
 function doEncrypt() {
-    var msg = $('#encrypt input[name="message"]').val();
-    var key = $('#encrypt input[name="passphrase"]').val();
+    var form = $('#encrypt')
+    var values = getInput(form);
 
-    msg = msg.toLowerCase();
-    msg = msg.replace(/[^a-z]+/g, '');
+    if (values['error']) {
+        return;
+    }
 
-    var result = $('#encrypt textarea[name="result"]');
+    values['message'] = values['message']
+        .toLowerCase()
+        .replace(/[^a-z]+/g, '');
 
-    result.val(encrypt(msg, key));
+    var result = form.find('textarea[name=result]');
+
+    result.val(encrypt(values['message'], values['passphrase']));
+
+    var labels = form.find('label');
+    for (let i = 0; i < 2; i++) {
+        labels.eq(i).removeClass('error');
+    }
 }
 
 function doDecrypt() {
-    var cypher = $('#decrypt input[name="cypher"]').val();
-    var key = $('#decrypt input[name="passphrase"]').val();
+    var form = $('#decrypt');
+    var values = getInput(form);
 
-    var result = $('#decrypt textarea[name="result"]');
+    if (values['error']) {
+        return;
+    }
 
-    result.val(decrypt(cypher, key));
+    var result = form.find('textarea[name=result]');
+
+    result.val(decrypt(values['message'], values['passphrase']));
+
+    var labels = form.find('label');
+    for (let i = 0; i < 2; i++) {
+        labels.eq(i).removeClass('error');
+    }
 }
 </script>
 
