@@ -1,5 +1,7 @@
 from flask import Flask, Blueprint, jsonify, request, abort, current_app, \
         make_response
+import random
+import requests
 from sqlalchemy.sql import func
 from slackclient import SlackClient
 
@@ -11,7 +13,8 @@ friendbot = Blueprint('fb', __name__)
 
 
 def get_phrase(text, event):
-    if text.startswith('!') and text.endswith('bot'):
+    if text.startswith('!') and text.lower().endswith('bot'):
+        text = text.lower()
         friend = Friend.query.filter_by(name=text[1:-3]).first()
 
     elif text.startswith('<@'):
@@ -20,15 +23,18 @@ def get_phrase(text, event):
         if ('uploaded a file:' in text or
                 'commented on' in text or
                 'pinned ' in text or
+                'joined #' in text or
                 'set the' in text):
             return make_response('Ignoring', 200,)
 
         text = re.sub('>.*$', '', text)
 
-        friend = Friend.query.filter_by(slack_id=text[2:]).first()
+        search = Friend.query.filter_by(slack_id=text[2:])
 
-        if friend is None:
+        if not search.count():
             return make_response('Friend not found', 200,)
+
+        friend = search.first()
     else:
         return make_response('Not a friendbot request', 200,)
 
@@ -48,6 +54,7 @@ def get_phrase(text, event):
 
     emoji_icons = {
         'claire': ':chandyw:',
+        'flora': ':flora1:',
         'max': ':max:',
         'lawrence': ':man_with_turban:'
     }
@@ -58,6 +65,11 @@ def get_phrase(text, event):
         args['icon_emoji'] = emoji_icons[name]
     else:
         args['icon_url'] = 'https://maxtimkovich.com/img/friends/{}.jpg'.format(name)
+
+        r = requests.get(args['icon_url'])
+
+        if r.status_code != 200:
+            return make_response("User icon not found", 200,)
 
     sc.api_call(
         'chat.postMessage',
@@ -92,10 +104,11 @@ def index():
         if event_type == 'message':
             text = event.get('text', '')
 
-            if ((text.startswith('!') and text.endswith('bot')) or
+            if ((text.startswith('!') and text.lower().endswith('bot')) or
                     text.startswith('<@')):
                 return get_phrase(text, event)
-            elif re.search('ma+(x|cks)', text, re.I):
+            elif (re.search('ma+(x|cks)', text, re.I) or
+                    re.search('swerve', text, re.I)):
                 sc = SlackClient(current_app.config['SLACK_BOT_TOKEN'])
 
                 sc.api_call(
@@ -198,4 +211,53 @@ def emotify():
     return jsonify({
         'response_type': 'in_channel',
         'text': emotifier(emote, phrase),
+    })
+
+the_asians = {
+    'claire': '@U40UP9YEN',
+    'carl': '@U410XHHLM',
+    'ben': '@U45VC1JDQ',
+    'jay': '@U407FJ7KK',
+    'bobo': '@U407JD1K3',
+    'henry': '@U7SCBA9RN',
+    'rose': '@U7C5JF4FQ',
+    'will': '@U858K8M19',
+    'bump': '@U920CGV29',
+    'pearl': '@U91GKF55F',
+    'flora': '@U45DQ47EV',
+    'tony': '@U8F69PJ1Y',
+    'ernest': '@U407EU12M',
+    'mindy': '@U40TVQN1H',
+    'kai': '@UA3166RGA',
+    'justin': '@U406YM1JL',
+}
+
+musketeers = {
+    'max': '@U410D66MA',
+    'jonat': '@U40SH115Z',
+    'cassidy': '@U45SYMD0A',
+}
+
+
+@friendbot.route('/people_ping', methods=['POST'])
+def people_ping():
+    form = request.form
+    if form.get('token') != current_app.config['SLACK_VERIFY_TOKEN']:
+        return make_response('', 200,)
+
+    cmd = form.get('command')
+    if cmd == '/asians':
+        people = list(the_asians.values())
+    elif cmd == '/three_musketeers':
+        people = list(musketeers.values())
+    elif cmd == '/halfies':
+        people [the_asians['jay']]
+    else:
+        return make_response('Invalid command', 200,)
+    
+    random.shuffle(people)
+
+    return jsonify({
+        'response_type': 'in_channel',
+        'text': ' '.join('<{}>'.format(n) for n in people)
     })

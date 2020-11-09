@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}How old is Igor?{% endblock %}
+{% block header %}{{self.title()}}{% endblock %}
+{% block content %}
+<style>
+.date {
+    font-weight: bold;
+}
+</style>
+
+Igor is:
+<ul>
+    <li><span class="date"></span> weeks,</li>
+    <li><span class="date"></span> months, or</li>
+    <li><span class="date"></span> years old!</li>
+</ul>
+
+<script>
+const MILLI_IN_WEEKS = 1000 * 60 * 60 * 24 * 7;
+const MILLI_IN_MONTH = MILLI_IN_WEEKS * 4.345;
+const MILLI_IN_YEAR = MILLI_IN_MONTH * 12;
+
+const birthday = new Date('2019/10/31 1:00:00');
+const today = new Date(new Date().toDateString());
+const age = today - birthday;
+
+// weeks, months, years
+const dates = []
+dates.push(age / MILLI_IN_WEEKS);
+dates.push(age / MILLI_IN_MONTH);
+dates.push(age / MILLI_IN_YEAR);
+
+const dateElements = document.querySelectorAll('.date');
+dates.forEach((val, i) => {
+    dateElements[i].textContent = val.toPrecision(3);
+});
+</script>
+{% endblock %}

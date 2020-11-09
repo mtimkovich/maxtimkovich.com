@@ -9,9 +9,6 @@
         <h4><a href="https://randomemojikeyboard.com">Random Emoji Keyboard</a></h4>
         <p>The most powerful predictive keyboard for mobile.</p>
 
-        <h4><a href={{url_for('hs.index')}}>HearthSounds</a></h4>
-        <p>Get Hearthstone card sounds.</p>
-
         <h4><a href={{url_for('show', page='python_tutorial')}}>Python Tutorial</a></h4>
         <p>Python guide for physics majors.</p>
 
@@ -20,8 +17,8 @@
     </div>
 
     <div class="col-lg-6">
-        <h4><a href="{{url_for('show', page='smash_maxpr')}}">Foundry Melee MaxPR</a></h4>
-        <p>Elo rankings for Get Smashed at the Foundry (RIP).</p>
+        <h4><a href={{url_for('hs.index')}}>HearthSounds</a></h4>
+        <p>Get Hearthstone card sounds.</p>
 
         <h4><a href={{url_for('tt.index')}}>Top Tracks</a></h4>
         <p>Get the most played tracks for a SoundCloud artist.</p>
@@ -36,7 +33,7 @@
 
 <script>
 $('h1').text(() => {
-    var msgs = [
+    const msgs = [
         'My name is Max.',
         'Me llamo Max.',
         'Mein name ist Max.',

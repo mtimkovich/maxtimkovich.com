@@ -135,15 +135,15 @@ function concatenate (parts) {
 }
 
 function longhand (num) {
-    if (num.search('0+') != -1) {
+    num += '';
+    var parts = threes(num);
+
+    if (parts.length == 1 && parseInt(parts[0], 10) == 0) {
         return 'Zero';
     }
 
-    var parts = threes(num);
     var words = to_words(parts);
-    var output = concatenate(words);
-
-    return output;
+    return concatenate(words);
 }
 
 function getLonghand () {

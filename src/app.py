@@ -4,6 +4,7 @@ import os
 
 from top_tracks.top_tracks import top_tracks
 from friendbot.friendbot import friendbot
+from announcementbot.announcementbot import announcementbot 
 from hearthsounds.hearthsounds import hearthsounds
 from saved_posts.saved_posts import saved_posts
 
@@ -20,9 +21,11 @@ class Config:
     FRIENDS_DB = os.getenv('FRIENDS_DB', 'friends.db')
 
     SLACK_VERIFY_TOKEN = os.getenv('SLACK_VERIFY_TOKEN')
+    SLACK_ANN_VERIFY_TOKEN = os.getenv('SLACK_ANN_VERIFY_TOKEN')
     SLACK_BOT_TOKEN = os.getenv('SLACK_BOT_TOKEN')
 
 app = Flask(__name__)
+application = app
 app.url_map.strict_slashes = False
 app.config.from_object(__name__+'.Config')
 app.secret_key = app.config['SECRET_KEY']
@@ -31,6 +34,7 @@ app.secret_key = app.config['SECRET_KEY']
 app.register_blueprint(top_tracks)
 app.register_blueprint(hearthsounds)
 app.register_blueprint(friendbot)
+app.register_blueprint(announcementbot)
 app.register_blueprint(saved_posts, url_prefix='/saved_posts')
 
 # DB Stuff
@@ -58,6 +62,16 @@ def not_authorized(e):
 @app.errorhandler(500)
 def ise(e):
     return render_template('500.html'), 500
+
+
+@app.route('/ojt')
+def ojt():
+    return redirect('https://chrome.google.com/webstore/detail/quick-javascript-switcher/ahjfodbngfpdppljbkhcfhcfdagfgcnj')
+
+
+@app.route('/auTO')
+def auTO():
+    return redirect('https://discordapp.com/api/oauth2/authorize?client_id=687888371556548680&permissions=75856&scope=bot')
 
 
 @app.route('/')

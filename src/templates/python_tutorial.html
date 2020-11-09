@@ -10,8 +10,8 @@
 
 {% block content %}
 
-<p>by Max Timkovich<br>Updated: 2017-9-19</p>
-<p><em>for Paul, Nick, and Nathan: so you guys can have some marketable skills.</em></p>
+<p>by Max Timkovich<br>Updated: 2018-3-20</p>
+<p><em>for Paul, Nick, Nathan, Mindy, and Ariel: so you guys can have some marketable skills.</em></p>
 <h2 id="introduction">Introduction</h2>
 <p>Python is a pretty cool programming language. It&#39;s easy to read and write and runs on a bunch of different operating systems. Despite being relatively easy to learn, it&#39;s not a toy; it&#39;s used on websites like YouTube, reddit, and Dropbox.</p>
 <p>This tutorial isn&#39;t exhaustive, but should be a good starting point, and for learning what Python is about.</p>
@@ -24,7 +24,7 @@
 <p>This is a REPL (read-eval-print loop). Anything you type will be run and printed to the screen. This is really useful for playing around with Python and trying out new concepts. You should try out most of the things in the tutorial in the REPL.</p>
 <p>Here&#39;s some stuff to try out to get a feel for Python. Hit enter after each command to have it run.</p>
 <pre><code># Printing stuff to the screen
-&gt;&gt;&gt; print &#39;hello, world&#39;
+&gt;&gt;&gt; print(&#39;hello, world&#39;)
 
 # Advanced mathematics
 &gt;&gt;&gt; 1 + 2
@@ -91,11 +91,18 @@ print(&#39;Hello, {}!&#39;.format(&#39;World&#39;))
 <p>But we&#39;ll cover it anyway.</p>
 <h2 id="conditionals">Conditionals</h2>
 <p>The majority of the heavy lifting in any program happens in the conditional statements: loops and if statements.<br>The format for them is looks like:</p>
-<pre><code>if statement:
-    # Do stuff
+<pre><code>if i == 2:
+    print(&quot;Two&quot;)
+elif i == 3:
+    print(&quot;Three&quot;)
+else:
+    print(&quot;Not 2 or 3!&quot;)
 
-while statement:
-    # Do stuff until statement is false
+i = 0
+while i &lt; 10:
+    # Do stuff until the above statement is false
+    print(&quot;i&quot;)
+    i += 1
 </code></pre><p>A statement is anything that evaluates to either <code>True</code> or <code>False</code>. In Python, empty strings (<code>&#39;&#39;</code>), <code>0</code>, empty lists (<code>[]</code>), and <code>None</code> evaluate<br>to <code>False</code>. Everything else is <code>True</code>.</p>
 <ul>
 <li><code>==</code>: check if two values are equal. <em>Don&#39;t confuse with <code>=</code> used for assigning values.</em></li>

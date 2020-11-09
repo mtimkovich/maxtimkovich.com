@@ -1,16 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Random Integers{% endblock %}
+{% block title %}Random Numbers{% endblock %}
 {% block header %}{{self.title()}}{% endblock %}
 {% block content %}
+<p class="lead">Roll an n-sided dice</p>
 <form>
     <div class="form-group">
-        <label id="minLabel" class="sr-only">Min</label>
-        <input type="tel" id="min" placeholder="Min" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label id="maxLabel" class="sr-only">Max</label>
-        <input type="tel" id="max" placeholder="Max" class="form-control">
+        <label id="maxLabel" class="sr-only">Number of sides</label>
+        <input type="tel" id="max" placeholder="Number of sides" class="form-control">
     </div>
 
     <button type="button" class="btn btn-primary" onclick="randint();">Go!</button>
@@ -21,19 +17,13 @@
 </form>
 
 <script>
+var first = true;
+
 function randint() {
     var form = $('form')[0];
 
-    var min = parseInt(form.min.value);
     var max = parseInt(form.max.value);
     var error = false;
-
-    if (isNaN(min)) {
-        $('#minLabel').addClass("error");
-        error = true;
-    } else {
-        $('#minLabel').removeClass("error");
-    }
 
     if (isNaN(max)) {
         $('#maxLabel').addClass("error");
@@ -43,7 +33,13 @@ function randint() {
     }
 
     if (!error) {
-        form.result.value = Math.floor(Math.random() * (max-min+1) + min);
+        // Sorry Jay
+        if (first && location.hash.substr(1) == "1") {
+            form.result.value = max;
+            first = false;
+        } else {
+            form.result.value = Math.floor(Math.random() * max + 1);
+        }
     }
 }
 </script>
